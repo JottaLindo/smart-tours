@@ -282,14 +282,25 @@ button {
   line-height: 1.6;
 }
 
-.page-list input {
+.page-list input,
+.account-form input,
+.access-card input {
   width: 100%;
   border: 1px solid #d8eadc;
-  background: white;
+  background: #ffffff;
+  color: #102015;
   border-radius: 18px;
   padding: 16px;
   font-size: 15px;
+  font-weight: 700;
   outline: none;
+}
+
+.page-list input::placeholder,
+.account-form input::placeholder,
+.access-card input::placeholder {
+  color: #7b887f;
+  opacity: 1;
 }
 
 /* TOURS */
@@ -999,4 +1010,292 @@ button {
     border: 10px solid #111;
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
   }
+}
+/* =========================
+   SMART TOURS — COLOR UPGRADE
+   Cola isto no fim do App.css
+========================= */
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.28), transparent 34%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.18), transparent 32%),
+    linear-gradient(135deg, #03140b 0%, #052014 45%, #06100b 100%);
+}
+
+/* Fundo geral da app */
+.app-shell,
+.map-screen {
+  background:
+    linear-gradient(180deg, #f5fff7 0%, #e7f8ec 45%, #dff4e8 100%);
+}
+
+/* Header mais vivo */
+.app-top,
+.map-top {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(236, 253, 245, 0.96));
+  border: 1px solid rgba(22, 163, 74, 0.14);
+  box-shadow:
+    0 16px 40px rgba(22, 163, 74, 0.16),
+    0 10px 25px rgba(0, 0, 0, 0.10);
+}
+
+.brand-logo-main {
+  background: #dcfce7;
+  padding: 7px;
+  border-radius: 18px;
+}
+
+.brand-texts h1 {
+  background: linear-gradient(90deg, #0f172a, #16a34a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-texts span {
+  color: #16a34a;
+}
+
+/* Botão de idioma */
+.app-top button,
+.map-top button {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  color: #15803d;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.16);
+}
+
+/* Hero mais premium */
+.home-hero {
+  background:
+    linear-gradient(180deg, rgba(3, 20, 11, 0.08), rgba(3, 20, 11, 0.88)),
+    linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(14, 165, 233, 0.08)),
+    url("https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.hero-badge {
+  background: rgba(34, 197, 94, 0.25);
+  border: 1px solid rgba(187, 247, 208, 0.45);
+  color: #ecfdf5;
+}
+
+.home-overlay h2 {
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.hero-actions button:first-child,
+.primary-btn,
+.tour-footer button,
+.checkout-box button,
+.access-card button {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
+}
+
+.hero-actions button:last-child,
+.ghost-btn,
+.secondary {
+  background: linear-gradient(135deg, #ffffff, #ecfdf5);
+  color: #166534;
+}
+
+/* Cards mais coloridos */
+.benefits-grid div,
+.tour-item,
+.cart-item,
+.ticket-card,
+.qr-ticket-card,
+.empty-box,
+.checkout-box,
+.payment-box,
+.profile-hero,
+.access-card,
+.tour-card {
+  border: 1px solid rgba(22, 163, 74, 0.12);
+  box-shadow:
+    0 16px 38px rgba(22, 163, 74, 0.10),
+    0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.benefits-grid div:nth-child(1) {
+  background: linear-gradient(180deg, #ffffff, #ecfdf5);
+}
+
+.benefits-grid div:nth-child(2) {
+  background: linear-gradient(180deg, #ffffff, #eff6ff);
+}
+
+.benefits-grid div:nth-child(3) {
+  background: linear-gradient(180deg, #ffffff, #fefce8);
+}
+
+.benefits-grid div:nth-child(1) svg {
+  color: #16a34a;
+}
+
+.benefits-grid div:nth-child(2) svg {
+  color: #2563eb;
+}
+
+.benefits-grid div:nth-child(3) svg {
+  color: #ca8a04;
+}
+
+/* Títulos */
+.page-list h2,
+.section-head h3,
+.profile-hero h2,
+.tour-item h3,
+.cart-item h3,
+.ticket-card h3,
+.qr-ticket-card h3 {
+  color: #0f2417;
+}
+
+.page-intro,
+.tour-item p,
+.cart-item p,
+.profile-hero p {
+  color: #526258;
+}
+
+/* Tours */
+.tour-meta span {
+  background: #ecfdf5;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #15803d;
+}
+
+.tour-item img {
+  border-bottom: 4px solid #bbf7d0;
+}
+
+.tour-info-row span {
+  background: linear-gradient(135deg, #ecfdf5, #dcfce7);
+  border: 1px solid rgba(22, 163, 74, 0.12);
+}
+
+/* Bilhetes com mais impacto */
+.ticket-card-big {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(22, 163, 74, 0.14);
+}
+
+.ticket-card-big::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.32), transparent 35%),
+    linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.76));
+  pointer-events: none;
+}
+
+.ticket-content {
+  position: relative;
+  z-index: 2;
+}
+
+.ticket-button {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  box-shadow: 0 10px 25px rgba(22, 163, 74, 0.3);
+}
+
+/* Carrinho */
+.bike-row {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 1px solid rgba(22, 163, 74, 0.10);
+}
+
+.qty button {
+  background: white;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.12);
+}
+
+/* Check-out */
+.payment-options button.active {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.payment-details {
+  background:
+    linear-gradient(135deg, #ecfdf5, #dcfce7);
+  border: 1px solid rgba(22, 163, 74, 0.12);
+}
+
+/* Inputs */
+.page-list input,
+.account-form input,
+.access-card input {
+  background: #ffffff;
+  color: #102015;
+  border: 1px solid #bdecc9;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.06);
+}
+
+.page-list input:focus,
+.account-form input:focus,
+.access-card input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
+}
+
+/* Perfil */
+.profile-icon {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
+}
+
+.profile-stats div {
+  background: linear-gradient(135deg, #ecfdf5, #dcfce7);
+}
+
+/* Bottom nav mais premium */
+.bottom-nav {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(22, 163, 74, 0.16);
+  box-shadow:
+    0 16px 38px rgba(22, 163, 74, 0.16),
+    0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.bottom-nav button.active {
+  background: #ecfdf5;
+  color: #16a34a;
+  border-radius: 18px;
+  margin: 7px;
+}
+
+/* Mapa */
+.map-top {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.access-card.locked {
+  border: 1px solid rgba(22, 163, 74, 0.18);
+}
+
+.lock-icon {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+}
+
+/* Pequena animação nos botões */
+button {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+button:active {
+  transform: scale(0.97);
 }

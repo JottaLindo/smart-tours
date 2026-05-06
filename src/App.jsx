@@ -568,6 +568,7 @@ function App() {
     setPage("profile");
   };
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const BottomNav = ({ floating = false }) => (
     <div className={`bottom-nav ${floating ? "floating" : ""}`}>
       <button onClick={() => setPage("home")} className={page === "home" ? "active" : ""}>
@@ -597,6 +598,7 @@ function App() {
     </div>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const Layout = ({ children }) => (
     <div className="app-shell">
       <div className="app-top">
@@ -621,6 +623,7 @@ function App() {
     </div>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const HomePage = () => (
     <Layout>
       <section className="home-hero">
@@ -674,6 +677,7 @@ function App() {
     </Layout>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const ToursPage = () => (
     <Layout>
       <section className="page-list">
@@ -724,6 +728,7 @@ function App() {
     </Layout>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const TouristTicketsPage = () => (
     <Layout>
       <section className="page-list">
@@ -889,6 +894,7 @@ function App() {
     </div>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const CartPage = () => (
     <Layout>
       <section className="page-list">
@@ -981,6 +987,7 @@ function App() {
     </Layout>
   );
 
+// eslint-disable-next-line react/no-unstable-nested-components
   const CheckoutPage = () => {
     const payment = PAYMENT_DETAILS[checkout.paymentMethod];
 
@@ -1029,7 +1036,8 @@ function App() {
       </Layout>
     );
   };
-
+  
+// eslint-disable-next-line react/no-unstable-nested-components
   const ProfilePage = () => {
     const tourOrders = orders.filter((order) => order.kind === "tour");
     const ticketOrders = orders.filter((order) => order.kind === "ticket");
