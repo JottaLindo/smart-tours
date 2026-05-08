@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -34,6 +34,9 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
+import alfamaImg from "./assets/tours/alfama.jpg";
+import ponteImg from "./assets/tours/ponte.jpg";
+import miradouroImg from "./assets/tours/miradouro.jpg";
 import "leaflet/dist/leaflet.css";
 import "./App.css";
 import logoImg from "./assets/logo.png";
@@ -72,7 +75,7 @@ const translations = {
     accessDenied: "Este email ainda não tem uma compra ativa para este tour.",
     accessGranted: "Compra verificada. Já podes iniciar o guia.",
     exploreTitle: "Descobre Lisboa de bicicleta",
-    exploreText: "Tours guiados por app, rotas bonitas, bilhetes turísticos por QR Code e aluguer de bicicletas.",
+    exploreText: "Explore Lisboa ao seu ritmo com rotas interativas, aluguer de bicicletas e bilhetes digitais para as principais atrações da cidade.",
     viewTours: "Ver Tours",
     viewTickets: "Comprar Bilhetes",
     allTours: "Tours disponíveis",
@@ -125,7 +128,7 @@ const translations = {
     accessDenied: "This email does not have an active purchase for this tour yet.",
     accessGranted: "Purchase verified. You can now start the guide.",
     exploreTitle: "Discover Lisbon by bike",
-    exploreText: "App-guided tours, beautiful routes, tourist tickets with QR Code and bike rental.",
+    exploreText: "Explore Lisbon at your own pace with interactive routes, bike rental and digital tickets for the city’s top attractions.",
     viewTours: "View Tours",
     viewTickets: "Buy Tickets",
     allTours: "Available tours",
@@ -170,7 +173,7 @@ const tours = [
     rating: 4.9,
     reviews: 1247,
     category: { pt: "História", en: "History" },
-    image: "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1200&q=80",
+    image: alfamaImg,
     description: {
       pt: "Sé, Alfama, miradouros e Praça do Comércio num percurso clássico e fácil de seguir.",
       en: "Cathedral, Alfama, viewpoints and Commerce Square in a classic and easy-to-follow route.",
@@ -191,7 +194,7 @@ const tours = [
     rating: 4.8,
     reviews: 892,
     category: { pt: "Cultura", en: "Culture" },
-    image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80",
+    image: ponteImg,
     description: {
       pt: "Percurso junto ao Tejo com Jerónimos, Padrão dos Descobrimentos, Torre de Belém e MAAT.",
       en: "Riverside route with Jerónimos, Discoveries Monument, Belém Tower and MAAT.",
@@ -212,7 +215,7 @@ const tours = [
     rating: 4.9,
     reviews: 756,
     category: { pt: "Vistas", en: "Views" },
-    image: "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1200&q=80",
+    image: miradouroImg,
     description: {
       pt: "Percurso panorâmico pelos melhores miradouros e zonas altas da cidade.",
       en: "Panoramic route through Lisbon’s best viewpoints and hilltop areas.",
@@ -319,6 +322,20 @@ function App() {
   const [status, setStatus] = useState("");
   const [cart, setCart] = useState([]);
   const [accessEmail, setAccessEmail] = useState(localStorage.getItem(TOUR_ACCESS_KEY) || "");
+const checkoutNameRef = useRef(null);
+const checkoutEmailRef = useRef(null);
+const checkoutPhoneRef = useRef(null);
+
+const accountNameRef = useRef(null);
+const accountEmailRef = useRef(null);
+const accountPhoneRef = useRef(null);
+const accountCountryRef = useRef(null);
+const accountDialCodeRef = useRef(null);
+const accountAvatarRef = useRef(null);
+
+const [avatarPreview, setAvatarPreview] = useState("");
+
+const [isEditingAccount, setIsEditingAccount] = useState(false);
 
   const [checkout, setCheckout] = useState({
     name: "",
@@ -335,12 +352,6 @@ function App() {
   const [account, setAccount] = useState(() =>
     JSON.parse(localStorage.getItem(ACCOUNT_KEY) || "null")
   );
-
-  const [accountForm, setAccountForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
 
   const t = translations[language];
 
@@ -500,73 +511,112 @@ function App() {
     );
   };
 
-  const createAccount = () => {
-    if (!accountForm.name || !accountForm.email) return;
+const handleAvatarChange = (event) => {
+  const file = event.target.files?.[0];
+  if (!file) return;
 
-    const newAccount = {
-      name: accountForm.name,
-      email: accountForm.email,
-      phone: accountForm.phone,
-      createdAt: new Date().toLocaleDateString("pt-PT"),
-    };
+  const reader = new FileReader();
 
-    setAccount(newAccount);
-    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(newAccount));
+  reader.onload = () => {
+    setAvatarPreview(reader.result);
   };
 
-  const finishOrder = () => {
-    if (!checkout.name || !checkout.email || cart.length === 0 || !checkout.paymentConfirmed) {
-      return;
-    }
+  reader.readAsDataURL(file);
+};
 
-    const newOrders = cart.map((item) => {
-      if (item.kind === "tour") {
-        return {
-          orderId: `${Date.now()}-${item.id}`,
-          kind: "tour",
-          tourId: item.id,
-          title: item.title[language],
-          email: checkout.email,
-          people: item.people,
-          bikes: item.bikes,
-          total: itemTotal(item),
-          paymentMethod: checkout.paymentMethod,
-          date: new Date().toLocaleDateString("pt-PT"),
-        };
-      }
+const createAccount = () => {
+  const name = accountNameRef.current?.value?.trim() || "";
+  const email = accountEmailRef.current?.value?.trim() || "";
+  const phone = accountPhoneRef.current?.value?.trim() || "";
+  const country = accountCountryRef.current?.value || "Portugal";
+  const dialCode = accountDialCodeRef.current?.value || "+351";
 
+  if (!name || !email) return;
+
+  const newAccount = {
+    name,
+    email,
+    phone,
+    country,
+    dialCode,
+    fullPhone: phone ? `${dialCode} ${phone}` : "",
+    avatar: avatarPreview || account?.avatar || "",
+    createdAt: account?.createdAt || new Date().toLocaleDateString("pt-PT"),
+  };
+
+  setAccount(newAccount);
+  localStorage.setItem(ACCOUNT_KEY, JSON.stringify(newAccount));
+  setIsEditingAccount(false);
+
+  console.log("Novo utilizador registado:", newAccount);
+};
+
+const logoutAccount = () => {
+  setAccount(null);
+  setIsEditingAccount(false);
+  localStorage.removeItem(ACCOUNT_KEY);
+};
+
+const finishOrder = () => {
+  const name = checkoutNameRef.current?.value?.trim() || "";
+  const email = checkoutEmailRef.current?.value?.trim() || "";
+  const phone = checkoutPhoneRef.current?.value?.trim() || "";
+
+  if (!name || !email || cart.length === 0 || !checkout.paymentConfirmed) {
+    return;
+  }
+
+  const newOrders = cart.map((item) => {
+    if (item.kind === "tour") {
       return {
         orderId: `${Date.now()}-${item.id}`,
-        kind: "ticket",
-        ticketId: item.id,
+        kind: "tour",
+        tourId: item.id,
         title: item.title[language],
-        email: checkout.email,
-        quantity: item.quantity,
+        email,
+        phone,
+        people: item.people,
+        bikes: item.bikes,
         total: itemTotal(item),
         paymentMethod: checkout.paymentMethod,
-        qr: fakeQrText(`${item.id}-${checkout.email}-${Date.now()}`),
         date: new Date().toLocaleDateString("pt-PT"),
       };
-    });
+    }
 
-    const updated = [...orders, ...newOrders];
+    return {
+      orderId: `${Date.now()}-${item.id}`,
+      kind: "ticket",
+      ticketId: item.id,
+      title: item.title[language],
+      email,
+      phone,
+      quantity: item.quantity,
+      total: itemTotal(item),
+      paymentMethod: checkout.paymentMethod,
+      qr: fakeQrText(`${item.id}-${email}-${Date.now()}`),
+      date: new Date().toLocaleDateString("pt-PT"),
+    };
+  });
 
-    setOrders(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    localStorage.setItem(TOUR_ACCESS_KEY, checkout.email);
+  const updated = [...orders, ...newOrders];
 
-    setAccessEmail(checkout.email);
-    setCart([]);
-    setCheckout({
-      name: "",
-      email: "",
-      phone: "",
-      paymentMethod: "mbway",
-      paymentConfirmed: false,
-    });
+  setOrders(updated);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  localStorage.setItem(TOUR_ACCESS_KEY, email);
 
-    setPage("profile");
-  };
+  setAccessEmail(email);
+  setCart([]);
+
+  setCheckout({
+    name: "",
+    email: "",
+    phone: "",
+    paymentMethod: "mbway",
+    paymentConfirmed: false,
+  });
+
+  setPage("profile");
+};
 
 // eslint-disable-next-line react/no-unstable-nested-components
   const BottomNav = ({ floating = false }) => (
@@ -988,144 +1038,339 @@ function App() {
   );
 
 // eslint-disable-next-line react/no-unstable-nested-components
-  const CheckoutPage = () => {
-    const payment = PAYMENT_DETAILS[checkout.paymentMethod];
+  // eslint-disable-next-line react/no-unstable-nested-components
+const CheckoutPage = () => {
+  const payment = PAYMENT_DETAILS[checkout.paymentMethod];
 
-    return (
-      <Layout>
-        <section className="page-list">
-          <h2>{t.checkout}</h2>
+  return (
+    <Layout>
+      <section className="page-list">
+        <h2>{t.checkout}</h2>
 
-          <input placeholder={t.name} value={checkout.name} onChange={(e) => setCheckout({ ...checkout, name: e.target.value })} />
-          <input placeholder={t.email} value={checkout.email} onChange={(e) => setCheckout({ ...checkout, email: e.target.value })} />
-          <input placeholder={t.phone} value={checkout.phone} onChange={(e) => setCheckout({ ...checkout, phone: e.target.value })} />
+        <input
+          ref={checkoutNameRef}
+          placeholder={t.name}
+          defaultValue=""
+          autoComplete="name"
+        />
 
-          <div className="payment-box">
-            <h3>{t.paymentMethod}</h3>
+        <input
+          ref={checkoutEmailRef}
+          placeholder={t.email}
+          defaultValue=""
+          type="email"
+          autoComplete="email"
+        />
 
-            <div className="payment-options">
-              <button className={checkout.paymentMethod === "mbway" ? "active" : ""} onClick={() => setCheckout({ ...checkout, paymentMethod: "mbway", paymentConfirmed: false })}>
-                MB WAY
-              </button>
-              <button className={checkout.paymentMethod === "paypal" ? "active" : ""} onClick={() => setCheckout({ ...checkout, paymentMethod: "paypal", paymentConfirmed: false })}>
-                PayPal
-              </button>
-              <button className={checkout.paymentMethod === "transfer" ? "active" : ""} onClick={() => setCheckout({ ...checkout, paymentMethod: "transfer", paymentConfirmed: false })}>
-                Banco
-              </button>
-            </div>
+        <input
+          ref={checkoutPhoneRef}
+          placeholder={t.phone}
+          defaultValue=""
+          type="tel"
+          autoComplete="tel"
+        />
 
-            <div className="payment-details">
-              <span>{payment.label}</span>
-              <strong>{payment.value}</strong>
-              <p>
-                {t.sendPayment} <b>{total.toFixed(2)}€</b>
-              </p>
-            </div>
+        <div className="payment-box">
+          <h3>{t.paymentMethod}</h3>
 
-            <label className="confirm-payment">
-              <input type="checkbox" checked={checkout.paymentConfirmed} onChange={(e) => setCheckout({ ...checkout, paymentConfirmed: e.target.checked })} />
-              <span>{t.confirmPayment}</span>
-            </label>
+          <div className="payment-options">
+            <button
+              className={checkout.paymentMethod === "mbway" ? "active" : ""}
+              onClick={() =>
+                setCheckout({
+                  ...checkout,
+                  paymentMethod: "mbway",
+                  paymentConfirmed: false,
+                })
+              }
+            >
+              MB WAY
+            </button>
+
+            <button
+              className={checkout.paymentMethod === "paypal" ? "active" : ""}
+              onClick={() =>
+                setCheckout({
+                  ...checkout,
+                  paymentMethod: "paypal",
+                  paymentConfirmed: false,
+                })
+              }
+            >
+              PayPal
+            </button>
+
+            <button
+              className={checkout.paymentMethod === "transfer" ? "active" : ""}
+              onClick={() =>
+                setCheckout({
+                  ...checkout,
+                  paymentMethod: "transfer",
+                  paymentConfirmed: false,
+                })
+              }
+            >
+              Banco
+            </button>
           </div>
 
-          <button className="primary-btn" onClick={finishOrder}>
-            {t.finishOrder}
-          </button>
-        </section>
-      </Layout>
-    );
-  };
+          <div className="payment-details">
+            <span>{payment.label}</span>
+            <strong>{payment.value}</strong>
+            <p>
+              {t.sendPayment} <b>{total.toFixed(2)}€</b>
+            </p>
+          </div>
+
+          <label className="confirm-payment">
+            <input
+              type="checkbox"
+              checked={checkout.paymentConfirmed}
+              onChange={(e) =>
+                setCheckout({
+                  ...checkout,
+                  paymentConfirmed: e.target.checked,
+                })
+              }
+            />
+            <span>{t.confirmPayment}</span>
+          </label>
+        </div>
+
+        <button className="primary-btn" onClick={finishOrder}>
+          {t.finishOrder}
+        </button>
+      </section>
+    </Layout>
+  );
+};
   
+const COUNTRY_OPTIONS = [
+  { country: "Portugal", code: "+351", flag: "🇵🇹" },
+  { country: "Espanha", code: "+34", flag: "🇪🇸" },
+  { country: "França", code: "+33", flag: "🇫🇷" },
+  { country: "Reino Unido", code: "+44", flag: "🇬🇧" },
+  { country: "Alemanha", code: "+49", flag: "🇩🇪" },
+  { country: "Itália", code: "+39", flag: "🇮🇹" },
+  { country: "Brasil", code: "+55", flag: "🇧🇷" },
+  { country: "Estados Unidos", code: "+1", flag: "🇺🇸" },
+  { country: "Canadá", code: "+1", flag: "🇨🇦" },
+  { country: "Países Baixos", code: "+31", flag: "🇳🇱" },
+  { country: "Bélgica", code: "+32", flag: "🇧🇪" },
+  { country: "Suíça", code: "+41", flag: "🇨🇭" },
+];
+
 // eslint-disable-next-line react/no-unstable-nested-components
-  const ProfilePage = () => {
-    const tourOrders = orders.filter((order) => order.kind === "tour");
-    const ticketOrders = orders.filter((order) => order.kind === "ticket");
+  // eslint-disable-next-line react/no-unstable-nested-components
+const ProfilePage = () => {
+  const tourOrders = orders.filter((order) => order.kind === "tour");
+  const ticketOrders = orders.filter((order) => order.kind === "ticket");
 
-    return (
-      <Layout>
-        {!account ? (
-          <section className="profile-hero">
-            <div className="profile-icon">
-              <User size={34} />
-            </div>
+  const showAccountForm = !account || isEditingAccount;
 
-            <h2>{t.createAccount}</h2>
-            <p>{t.profileText}</p>
-
-            <div className="account-form">
-              <input placeholder={t.name} value={accountForm.name} onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })} />
-              <input placeholder={t.email} value={accountForm.email} onChange={(e) => setAccountForm({ ...accountForm, email: e.target.value })} />
-              <input placeholder={t.phone} value={accountForm.phone} onChange={(e) => setAccountForm({ ...accountForm, phone: e.target.value })} />
-
-              <button className="primary-btn" onClick={createAccount}>
-                {t.createAccount}
-              </button>
-            </div>
-          </section>
-        ) : (
-          <>
-            <section className="profile-hero">
+  return (
+    <Layout>
+      {showAccountForm ? (
+        <section className="profile-hero">
+          <div className="profile-avatar-wrap">
+            {avatarPreview || account?.avatar ? (
+              <img
+                src={avatarPreview || account?.avatar}
+                alt="Foto de perfil"
+                className="profile-avatar-img"
+              />
+            ) : (
               <div className="profile-icon">
                 <User size={34} />
               </div>
+            )}
 
-              <h2>{account.name}</h2>
-              <p>{account.email}</p>
+            <label className="avatar-upload-btn">
+              {language === "pt" ? "Mudar foto" : "Change photo"}
+              <input
+                ref={accountAvatarRef}
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                hidden
+              />
+            </label>
+          </div>
 
-              <div className="profile-stats">
-                <div>
-                  <strong>{tourOrders.length}</strong>
-                  <span>Tours</span>
-                </div>
-                <div>
-                  <strong>{ticketOrders.length}</strong>
-                  <span>QR Tickets</span>
-                </div>
+          <h2>
+            {!account
+              ? t.createAccount
+              : language === "pt"
+              ? "Editar conta"
+              : "Edit account"}
+          </h2>
+
+          <p>{t.profileText}</p>
+
+          <div className="account-form">
+            <input
+              ref={accountNameRef}
+              placeholder={t.name}
+              defaultValue={account?.name || ""}
+              autoComplete="name"
+            />
+
+            <input
+              ref={accountEmailRef}
+              placeholder={t.email}
+              defaultValue={account?.email || ""}
+              type="email"
+              autoComplete="email"
+            />
+
+            <select
+              ref={accountCountryRef}
+              defaultValue={account?.country || "Portugal"}
+              className="profile-select"
+            >
+              {COUNTRY_OPTIONS.map((item) => (
+                <option key={item.country} value={item.country}>
+                  {item.flag} {item.country}
+                </option>
+              ))}
+            </select>
+
+            <div className="phone-row">
+              <select
+                ref={accountDialCodeRef}
+                defaultValue={account?.dialCode || "+351"}
+                className="dial-select"
+              >
+                {COUNTRY_OPTIONS.map((item) => (
+                  <option key={`${item.country}-${item.code}`} value={item.code}>
+                    {item.flag} {item.code}
+                  </option>
+                ))}
+              </select>
+
+              <input
+                ref={accountPhoneRef}
+                placeholder={t.phone}
+                defaultValue={account?.phone || ""}
+                type="tel"
+                autoComplete="tel"
+              />
+            </div>
+
+            <button className="primary-btn" onClick={createAccount}>
+              {!account
+                ? t.createAccount
+                : language === "pt"
+                ? "Guardar alterações"
+                : "Save changes"}
+            </button>
+
+            {account ? (
+              <button
+                className="secondary-profile-btn"
+                onClick={() => {
+                  setIsEditingAccount(false);
+                  setAvatarPreview("");
+                }}
+              >
+                {language === "pt" ? "Cancelar" : "Cancel"}
+              </button>
+            ) : null}
+          </div>
+        </section>
+      ) : (
+        <>
+          <section className="profile-hero">
+            {account.avatar ? (
+              <img
+                src={account.avatar}
+                alt="Foto de perfil"
+                className="profile-avatar-img big"
+              />
+            ) : (
+              <div className="profile-icon">
+                <User size={34} />
               </div>
-            </section>
+            )}
 
-            <section className="page-list compact">
-              <h2>{t.activeAccess}</h2>
+            <h2>{account.name}</h2>
+            <p>{account.email}</p>
 
-              {orders.length === 0 ? (
-                <div className="empty-box">{t.noAccess}</div>
-              ) : (
-                <>
-                  {tourOrders.map((order) => (
-                    <article key={order.orderId} className="ticket-card">
-                      <CheckCircle2 size={28} />
-                      <div>
-                        <h3>{order.title}</h3>
-                        <p>{order.email}</p>
-                        <span>
-                          {order.people} pessoa(s) • {order.bikes} bicicleta(s)
-                        </span>
-                      </div>
-                    </article>
-                  ))}
+            {account.fullPhone ? <p>{account.fullPhone}</p> : null}
+            {account.country ? <p>{account.country}</p> : null}
 
-                  {ticketOrders.map((order) => (
-                    <article key={order.orderId} className="qr-ticket-card">
-                      <div>
-                        <h3>{order.title}</h3>
-                        <p>{order.email}</p>
-                        <span>{order.quantity} bilhete(s)</span>
-                      </div>
-                      <div className="fake-qr">
-                        <QrCode size={42} />
-                        <small>{order.qr}</small>
-                      </div>
-                    </article>
-                  ))}
-                </>
-              )}
-            </section>
-          </>
-        )}
-      </Layout>
-    );
-  };
+            <div className="profile-stats">
+              <div>
+                <strong>{tourOrders.length}</strong>
+                <span>Tours</span>
+              </div>
+
+              <div>
+                <strong>{ticketOrders.length}</strong>
+                <span>QR Tickets</span>
+              </div>
+            </div>
+
+            <div className="profile-actions">
+              <button
+                className="primary-btn"
+                onClick={() => {
+                  setAvatarPreview(account?.avatar || "");
+                  setIsEditingAccount(true);
+                }}
+              >
+                {language === "pt" ? "Editar informações" : "Edit information"}
+              </button>
+
+              <button className="logout-btn" onClick={logoutAccount}>
+                {language === "pt" ? "Terminar sessão" : "Logout"}
+              </button>
+            </div>
+          </section>
+
+          <section className="page-list compact">
+            <h2>{t.activeAccess}</h2>
+
+            {orders.length === 0 ? (
+              <div className="empty-box">{t.noAccess}</div>
+            ) : (
+              <>
+                {tourOrders.map((order) => (
+                  <article key={order.orderId} className="ticket-card">
+                    <CheckCircle2 size={28} />
+
+                    <div>
+                      <h3>{order.title}</h3>
+                      <p>{order.email}</p>
+                      <span>
+                        {order.people} pessoa(s) • {order.bikes} bicicleta(s)
+                      </span>
+                    </div>
+                  </article>
+                ))}
+
+                {ticketOrders.map((order) => (
+                  <article key={order.orderId} className="qr-ticket-card">
+                    <div>
+                      <h3>{order.title}</h3>
+                      <p>{order.email}</p>
+                      <span>{order.quantity} bilhete(s)</span>
+                    </div>
+
+                    <div className="fake-qr">
+                      <QrCode size={42} />
+                      <small>{order.qr}</small>
+                    </div>
+                  </article>
+                ))}
+              </>
+            )}
+          </section>
+        </>
+      )}
+    </Layout>
+  );
+};
 
   if (page === "map") return <MapPage />;
   if (page === "tours") return <ToursPage />;

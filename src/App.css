@@ -2,6 +2,27 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-body: #010302;
+  --bg-app: #050805;
+  --bg-app-soft: #07110b;
+  --bg-card: #0d1812;
+  --bg-card-light: #111c16;
+
+  --green: #22c55e;
+  --green-dark: #16a34a;
+  --green-soft: #86efac;
+  --green-muted: rgba(34, 197, 94, 0.12);
+
+  --text: #f4fff8;
+  --text-soft: #b7c8be;
+  --text-muted: #7f9487;
+
+  --border: rgba(134, 239, 172, 0.13);
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.42);
+  --shadow-green: 0 14px 32px rgba(34, 197, 94, 0.14);
+}
+
 html,
 body,
 #root {
@@ -11,16 +32,30 @@ body,
 body {
   margin: 0;
   font-family: Inter, system-ui, Arial, sans-serif;
-  background: #06100b;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(34, 197, 94, 0.08), transparent 22%),
+    linear-gradient(135deg, #010302 0%, #031008 42%, #020503 100%);
+  color: var(--text);
 }
 
 button,
-input {
+input,
+select {
   font-family: inherit;
 }
 
 button {
   cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 .app-shell,
@@ -28,12 +63,19 @@ button {
   width: min(100vw, 430px);
   min-height: 100vh;
   margin: 0 auto;
-  background: #eef7ef;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.11), transparent 28%),
+    linear-gradient(180deg, #06100b 0%, #08130d 42%, #050805 100%);
+  color: var(--text);
   position: relative;
   overflow: hidden;
 }
 
-/* TOP BAR */
+.app-content {
+  padding: 10px 18px 92px;
+}
+
+/* HEADER */
 
 .app-top,
 .map-top {
@@ -43,38 +85,49 @@ button {
   margin: 14px;
   padding: 14px;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(12, 22, 16, 0.9);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow), var(--shadow-green);
 }
 
 .brand-area {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .brand-logo-main {
-  width: 54px;
-  height: 54px;
+  width: 66px;
+  height: 66px;
   object-fit: contain;
-  filter: drop-shadow(0 6px 18px rgba(22, 163, 74, 0.25));
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  filter: none;
 }
 
 .brand-texts h1 {
   margin: 0;
-  font-size: 25px;
+  font-size: 26px;
   line-height: 1;
   font-weight: 950;
-  color: #102015;
+  letter-spacing: -0.04em;
+  color: #f8fff9;
+}
+
+.brand-texts h1 span {
+  color: #7ee69c;
 }
 
 .brand-texts span {
   display: block;
   margin-top: 5px;
-  color: #64756b;
+  color: var(--green-soft);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -82,19 +135,15 @@ button {
 
 .app-top button,
 .map-top button {
-  border: 0;
+  border: 1px solid rgba(34, 197, 94, 0.18);
   border-radius: 16px;
-  background: #dcfce7;
-  color: #16a34a;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(34, 197, 94, 0.08));
+  color: #d8ffe5;
   padding: 12px;
   font-weight: 900;
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.app-content {
-  padding: 10px 18px 92px;
 }
 
 /* HOME */
@@ -104,14 +153,16 @@ button {
   border-radius: 34px;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.78)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.84)),
+    linear-gradient(135deg, rgba(34, 197, 94, 0.16), rgba(0, 0, 0, 0.08)),
     url("https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1200&q=80");
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: flex-end;
   padding: 24px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow);
 }
 
 .home-overlay {
@@ -122,8 +173,9 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(134, 239, 172, 0.24);
+  color: #f0fff5;
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 12px;
@@ -135,12 +187,14 @@ button {
   margin: 0;
   font-size: 37px;
   line-height: 1.05;
+  color: white;
+  text-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
 }
 
 .home-overlay p {
   margin: 14px 0 18px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .hero-actions {
@@ -150,20 +204,30 @@ button {
 }
 
 .hero-actions button {
-  border: 0;
   border-radius: 18px;
   padding: 14px;
   font-weight: 900;
 }
 
-.hero-actions button:first-child {
-  background: #16a34a;
+.hero-actions button:first-child,
+.primary-btn,
+.tour-footer button,
+.checkout-box button,
+.access-card button,
+.primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
   color: white;
+  box-shadow: 0 14px 28px rgba(34, 197, 94, 0.22);
 }
 
-.hero-actions button:last-child {
-  background: rgba(255, 255, 255, 0.94);
-  color: #166534;
+.hero-actions button:last-child,
+.ghost-btn,
+.secondary,
+.secondary-profile-btn {
+  background: rgba(255, 255, 255, 0.04);
+  color: #d7fbe2;
+  border: 1px solid rgba(134, 239, 172, 0.12);
 }
 
 /* BENEFITS */
@@ -176,23 +240,23 @@ button {
 }
 
 .benefits-grid div {
-  background: white;
-  border-radius: 22px;
-  padding: 14px 10px;
   min-height: 92px;
+  padding: 14px 10px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #0c1712 0%, #101b15 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   display: grid;
   place-items: center;
   text-align: center;
-  color: #16a34a;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  color: var(--green);
 }
 
 .benefits-grid span {
-  color: #102015;
+  color: #ecfff2;
   font-size: 12px;
   font-weight: 900;
 }
-
 /* SECTIONS */
 
 .section-head {
@@ -202,20 +266,47 @@ button {
   align-items: center;
 }
 
-.section-head h3 {
+.section-head h3,
+.page-list h2 {
   margin: 0;
+  color: var(--text);
+  line-height: 1.05;
+}
+
+.section-head h3 {
   font-size: 22px;
-  color: #102015;
+}
+
+.page-list h2 {
+  font-size: 32px;
 }
 
 .section-head button {
-  border: 0;
-  background: #dcfce7;
-  color: #166534;
-  font-weight: 900;
   border-radius: 999px;
   padding: 10px 14px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #dcffe8;
+  border: 1px solid rgba(34, 197, 94, 0.14);
+  font-weight: 900;
 }
+
+.page-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.page-list.compact {
+  margin-top: 16px;
+}
+
+.page-intro {
+  margin: -6px 0 0;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* MINI TOURS */
 
 .horizontal-tours {
   display: flex;
@@ -226,10 +317,11 @@ button {
 
 .mini-tour {
   min-width: 155px;
-  background: white;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #0d1812 0%, #111d16 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .mini-tour img {
@@ -246,74 +338,33 @@ button {
 
 .mini-tour strong {
   margin-top: 10px;
-  color: #102015;
+  color: var(--text);
   font-size: 14px;
 }
 
 .mini-tour span {
   padding-bottom: 12px;
   margin-top: 5px;
-  color: #16a34a;
+  color: var(--green-soft);
   font-weight: 900;
 }
 
-/* PAGE LIST */
-
-.page-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.page-list.compact {
-  margin-top: 16px;
-}
-
-.page-list h2 {
-  margin: 0;
-  font-size: 32px;
-  line-height: 1.05;
-  color: #102015;
-}
-
-.page-intro {
-  margin: -6px 0 0;
-  color: #526258;
-  line-height: 1.6;
-}
-
-.page-list input,
-.account-form input,
-.access-card input {
-  width: 100%;
-  border: 1px solid #d8eadc;
-  background: #ffffff;
-  color: #102015;
-  border-radius: 18px;
-  padding: 16px;
-  font-size: 15px;
-  font-weight: 700;
-  outline: none;
-}
-
-.page-list input::placeholder,
-.account-form input::placeholder,
-.access-card input::placeholder {
-  color: #7b887f;
-  opacity: 1;
-}
-
-/* TOURS */
+/* CARDS BASE */
 
 .tour-item,
 .cart-item,
 .qr-ticket-card,
 .empty-box,
 .checkout-box,
-.payment-box {
-  background: white;
+.payment-box,
+.ticket-card,
+.profile-hero,
+.access-card,
+.tour-card {
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-light) 100%);
+  border: 1px solid var(--border);
   border-radius: 28px;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .tour-item {
@@ -324,6 +375,7 @@ button {
   width: 100%;
   height: 190px;
   object-fit: cover;
+  border-bottom: 4px solid rgba(34, 197, 94, 0.35);
 }
 
 .tour-item-body,
@@ -345,27 +397,32 @@ button {
 }
 
 .tour-meta span {
-  color: #16a34a;
-  font-size: 12px;
-  font-weight: 900;
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--green-soft);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .tour-item h3,
 .cart-item h3,
-.qr-ticket-card h3 {
+.qr-ticket-card h3,
+.ticket-card h3 {
   margin: 10px 0 8px;
-  color: #102015;
+  color: var(--text);
   font-size: 23px;
 }
 
 .tour-item p,
 .cart-item p,
 .qr-ticket-card p,
+.ticket-card p,
 .empty-box {
-  color: #526258;
+  color: var(--text-soft);
   line-height: 1.55;
 }
 
@@ -379,17 +436,20 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #166534;
-  background: #f0fdf4;
+  color: #dcffe8;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.12);
   border-radius: 14px;
   padding: 10px 12px;
   font-size: 13px;
   font-weight: 800;
 }
 
-.tour-footer strong {
-  color: #16a34a;
-  font-size: 20px;
+.tour-footer strong,
+.cart-line-total strong,
+.checkout-box strong {
+  color: var(--green);
+  font-size: 22px;
 }
 
 .tour-footer button,
@@ -399,22 +459,19 @@ button {
   border-radius: 18px;
   padding: 14px 16px;
   font-weight: 900;
-  background: #16a34a;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
   color: white;
 }
 
 .ghost-btn {
   width: 100%;
   margin-top: 12px;
-  border: 1px solid #d8eadc;
-  background: #f0fdf4;
-  color: #166534;
   border-radius: 16px;
   padding: 13px;
   font-weight: 900;
 }
 
-/* TICKETS PREMIUM */
+/* TICKETS */
 
 .tickets-grid {
   display: flex;
@@ -427,8 +484,9 @@ button {
   height: 250px;
   overflow: hidden;
   border-radius: 30px;
-  background: #102015;
-  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.16);
+  background: #0b1510;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow);
 }
 
 .ticket-card-big .ticket-image {
@@ -442,9 +500,9 @@ button {
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.55) 42%,
-    rgba(0, 0, 0, 0.08) 100%
+    rgba(0, 0, 0, 0.84) 0%,
+    rgba(0, 0, 0, 0.6) 42%,
+    rgba(0, 0, 0, 0.12) 100%
   );
   display: flex;
   align-items: flex-end;
@@ -468,7 +526,7 @@ button {
 .ticket-card-big .ticket-description {
   margin: 10px 0 0;
   max-width: 285px;
-  color: rgba(255, 255, 255, 0.84);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -482,25 +540,180 @@ button {
 }
 
 .ticket-card-big .ticket-price {
-  color: #22c55e;
+  color: var(--green);
   font-size: 26px;
   font-weight: 950;
 }
 
 .ticket-card-big .ticket-button {
-  border: none;
+  border: 0;
   border-radius: 18px;
-  background: #22c55e;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
   color: white;
   padding: 13px 17px;
   font-size: 13px;
   font-weight: 900;
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.24);
 }
 
-.ticket-card-big .ticket-button:active {
-  transform: scale(0.97);
+/* INPUTS */
+
+.page-list input,
+.account-form input,
+.access-card input,
+.profile-select,
+.dial-select {
+  width: 100%;
+  border-radius: 18px;
+  padding: 16px;
+  background: #0b1410;
+  color: var(--text);
+  border: 1px solid rgba(134, 239, 172, 0.16);
+  font-size: 15px;
+  font-weight: 700;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.01);
 }
 
+.page-list input::placeholder,
+.account-form input::placeholder,
+.access-card input::placeholder {
+  color: var(--text-muted);
+}
+
+.page-list input:focus,
+.account-form input:focus,
+.access-card input:focus,
+.profile-select:focus,
+.dial-select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+/* CART */
+
+.bike-row {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(34, 197, 94, 0.1);
+}
+
+.bike-row span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qty button {
+  border: 1px solid rgba(134, 239, 172, 0.14);
+  background: #0b1410;
+  color: var(--green);
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+
+.cart-line-total {
+  margin-top: 16px;
+  border-top: 1px solid rgba(134, 239, 172, 0.1);
+  padding-top: 14px;
+}
+
+.cart-line-total span,
+.checkout-box span {
+  color: var(--text-soft);
+}
+
+.checkout-box {
+  padding: 18px;
+}
+
+.checkout-box strong {
+  display: block;
+  font-size: 25px;
+}
+
+/* PAYMENT */
+
+.payment-box h3 {
+  margin: 0 0 14px;
+  color: var(--text);
+}
+
+.payment-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.payment-options button {
+  border: 1px solid rgba(134, 239, 172, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #d9fbe5;
+  border-radius: 16px;
+  padding: 12px 8px;
+  font-weight: 900;
+}
+
+.payment-options button.active {
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  color: white;
+  border-color: transparent;
+}
+
+.payment-details {
+  margin-top: 14px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.12);
+  border-radius: 20px;
+  padding: 14px;
+}
+
+.payment-details span {
+  display: block;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.payment-details strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 18px;
+  word-break: break-word;
+}
+
+.payment-details p {
+  margin: 10px 0 0;
+  color: var(--text-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.confirm-payment {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-soft);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.confirm-payment input {
+  width: 18px;
+  height: 18px;
+}
 /* MAP */
 
 .map-screen {
@@ -521,15 +734,15 @@ button {
 
 .map-top p {
   margin: 0;
-  color: #16a34a;
+  color: var(--green-soft);
   font-weight: 900;
   font-size: 12px;
 }
 
 .map-top h1 {
   margin: 3px 0 0;
+  color: var(--text);
   font-size: 20px;
-  color: #102015;
 }
 
 .access-card,
@@ -541,8 +754,6 @@ button {
   z-index: 20;
   padding: 18px;
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
 }
 
 .locked {
@@ -556,45 +767,26 @@ button {
   display: grid;
   place-items: center;
   border-radius: 22px;
-  background: #f0fdf4;
-  color: #16a34a;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--green);
 }
 
 .access-card h2 {
   margin: 0;
-  color: #102015;
+  color: var(--text);
   font-size: 24px;
 }
 
-.access-card p {
-  color: #526258;
-  line-height: 1.5;
-  font-size: 14px;
-}
-
-.access-card input {
-  width: 100%;
-  border: 1px solid #d8eadc;
-  border-radius: 18px;
-  padding: 15px;
-  margin-bottom: 10px;
-  outline: none;
-}
-
-.access-card button {
-  width: 100%;
-  border: 0;
-  border-radius: 18px;
-  padding: 15px;
-  background: #16a34a;
-  color: white;
-  font-weight: 900;
+.access-card p,
+.tour-card p {
+  color: var(--text-soft);
+  line-height: 1.55;
 }
 
 .access-card small {
   display: block;
   margin-top: 10px;
-  color: #64756b;
+  color: var(--text-muted);
 }
 
 .card-header,
@@ -610,15 +802,15 @@ button {
 }
 
 .card-header span {
-  color: #16a34a;
+  color: var(--green-soft);
   font-weight: 900;
   font-size: 12px;
 }
 
 .card-header h2 {
   margin: 4px 0 0;
+  color: var(--text);
   font-size: 22px;
-  color: #102015;
 }
 
 .card-header button {
@@ -626,13 +818,8 @@ button {
   width: 46px;
   height: 46px;
   border-radius: 18px;
-  background: #dcfce7;
-  color: #16a34a;
-}
-
-.tour-card p {
-  color: #526258;
-  line-height: 1.55;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--green);
 }
 
 .actions {
@@ -642,7 +829,6 @@ button {
 }
 
 .actions button {
-  border: 0;
   border-radius: 18px;
   padding: 13px;
   font-weight: 900;
@@ -652,222 +838,48 @@ button {
   gap: 6px;
 }
 
-.primary {
-  background: #16a34a;
-  color: white;
-}
-
-.secondary {
-  background: #e8f7ed;
-  color: #166534;
-}
-
 .status {
   margin-top: 12px;
   padding: 11px;
   border-radius: 16px;
-  background: #f0fdf4;
-  color: #166534;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.12);
+  color: var(--green-soft);
   font-size: 12px;
   font-weight: 800;
   gap: 7px;
 }
 
-/* NAV */
-
-.bottom-nav {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 14px;
-  width: min(calc(100vw - 28px), 394px);
-  height: 64px;
-  z-index: 30;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.96);
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
-}
-
-.bottom-nav button {
-  border: 0;
-  background: transparent;
-  color: #7b887f;
-  font-size: 10px;
-  font-weight: 900;
-  display: grid;
-  place-items: center;
-  gap: 3px;
-}
-
-.bottom-nav button.active {
-  color: #16a34a;
-}
-
-.floating {
-  position: absolute;
-}
-
-/* CART */
-
-.bike-row {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 20px;
-  background: #f0fdf4;
-}
-
-.bike-row span {
-  display: block;
-  color: #64756b;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.qty button {
-  border: 0;
-  background: white;
-  color: #16a34a;
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-}
-
-.cart-line-total {
-  margin-top: 16px;
-  border-top: 1px solid #e5f3e8;
-  padding-top: 14px;
-}
-
-.cart-line-total span,
-.checkout-box span {
-  color: #64756b;
-}
-
-.cart-line-total strong,
-.checkout-box strong {
-  color: #16a34a;
-  font-size: 22px;
-}
-
-.checkout-box {
-  padding: 18px;
-}
-
-.checkout-box strong {
-  display: block;
-  font-size: 25px;
-}
-
-/* PAYMENT */
-
-.payment-box h3 {
-  margin: 0 0 14px;
-  color: #102015;
-}
-
-.payment-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.payment-options button {
-  border: 1px solid #d8eadc;
-  background: #f0fdf4;
-  color: #166534;
-  border-radius: 16px;
-  padding: 12px 8px;
-  font-weight: 900;
-}
-
-.payment-options button.active {
-  background: #16a34a;
-  color: white;
-  border-color: #16a34a;
-}
-
-.payment-details {
-  margin-top: 14px;
-  background: #f0fdf4;
-  border-radius: 20px;
-  padding: 14px;
-}
-
-.payment-details span {
-  display: block;
-  color: #64756b;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.payment-details strong {
-  display: block;
-  margin-top: 4px;
-  color: #102015;
-  font-size: 18px;
-  word-break: break-word;
-}
-
-.payment-details p {
-  margin: 10px 0 0;
-  color: #526258;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.confirm-payment {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #102015;
-  font-weight: 800;
-  font-size: 14px;
-}
-
-.confirm-payment input {
-  width: 18px;
-  height: 18px;
-}
-
 /* PROFILE */
 
 .profile-hero {
-  background:
-    linear-gradient(180deg, rgba(22, 163, 74, 0.18), rgba(255, 255, 255, 0.98)),
-    white;
-  border-radius: 34px;
   padding: 26px;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.1);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.12), transparent 35%),
+    linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-light) 100%);
 }
 
 .profile-icon {
   width: 68px;
   height: 68px;
   border-radius: 24px;
-  background: #16a34a;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
   color: white;
   display: grid;
   place-items: center;
   margin-bottom: 16px;
+  box-shadow: 0 16px 34px rgba(34, 197, 94, 0.18);
 }
 
 .profile-hero h2 {
   margin: 0;
+  color: var(--text);
   font-size: 30px;
-  color: #102015;
 }
 
 .profile-hero p {
-  color: #526258;
+  color: var(--text-soft);
   line-height: 1.6;
 }
 
@@ -877,14 +889,41 @@ button {
   gap: 12px;
 }
 
-.account-form input {
-  width: 100%;
-  border: 1px solid #d8eadc;
-  background: white;
-  border-radius: 18px;
-  padding: 16px;
-  font-size: 15px;
-  outline: none;
+.profile-avatar-wrap {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.profile-avatar-img {
+  width: 86px;
+  height: 86px;
+  border-radius: 28px;
+  object-fit: cover;
+  border: 4px solid rgba(34, 197, 94, 0.18);
+  box-shadow: 0 14px 35px rgba(34, 197, 94, 0.18);
+}
+
+.profile-avatar-img.big {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.avatar-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #d7ffe4;
+  border: 1px solid rgba(34, 197, 94, 0.16);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
 }
 
 .profile-stats {
@@ -895,33 +934,69 @@ button {
 }
 
 .profile-stats div {
-  background: #f0fdf4;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.12);
   border-radius: 20px;
   padding: 14px;
 }
 
 .profile-stats strong {
   display: block;
-  color: #16a34a;
+  color: var(--green);
   font-size: 26px;
 }
 
 .profile-stats span {
-  color: #64756b;
+  color: var(--text-soft);
   font-size: 13px;
   font-weight: 800;
 }
 
+.profile-actions {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.secondary-profile-btn,
+.logout-btn {
+  width: 100%;
+  border-radius: 18px;
+  padding: 14px 16px;
+  font-weight: 900;
+}
+
+.secondary-profile-btn {
+  background: rgba(255, 255, 255, 0.04);
+  color: #d7fbe2;
+  border: 1px solid rgba(134, 239, 172, 0.12);
+}
+
+.logout-btn {
+  background: rgba(127, 29, 29, 0.18);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.18);
+}
+
+.phone-row {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  gap: 10px;
+}
+
+.phone-row input {
+  margin: 0;
+}
+
+/* USER TICKETS */
+
 .ticket-card {
-  background: white;
-  border-radius: 28px;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.1);
   padding: 18px;
-  justify-content: flex-start;
-  color: #16a34a;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 14px;
+  color: var(--green);
 }
 
 .ticket-card h3,
@@ -933,7 +1008,7 @@ button {
 
 .ticket-card span,
 .qr-ticket-card span {
-  color: #64756b;
+  color: var(--text-muted);
   font-size: 13px;
 }
 
@@ -947,7 +1022,7 @@ button {
   height: 92px;
   border-radius: 18px;
   background: white;
-  color: #16a34a;
+  color: var(--green-dark);
   display: grid;
   place-items: center;
   padding: 8px;
@@ -963,32 +1038,89 @@ button {
   overflow: hidden;
 }
 
-/* EXTRA */
-
 .empty-box {
   padding: 24px;
 }
+
+/* NAV */
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 14px;
+  width: min(calc(100vw - 28px), 394px);
+  height: 64px;
+  z-index: 30;
+  border-radius: 24px;
+  background: rgba(10, 18, 13, 0.94);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(134, 239, 172, 0.12);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.35);
+}
+
+.bottom-nav button {
+  border: 0;
+  background: transparent;
+  color: #8ba094;
+  font-size: 10px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  gap: 3px;
+}
+
+.bottom-nav button.active {
+  color: var(--green);
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: 18px;
+  margin: 7px;
+}
+
+.floating {
+  position: absolute;
+}
+
+/* MARKERS */
 
 .stop-marker {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #16a34a;
+  background: var(--green);
   border: 4px solid white;
-  box-shadow: 0 0 0 7px rgba(22, 163, 74, 0.18);
+  box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.18);
 }
 
 .user-marker {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #2563eb;
+  background: var(--green);
   border: 4px solid white;
-  box-shadow: 0 0 0 9px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 0 0 9px rgba(34, 197, 94, 0.18);
 }
 
 .leaflet-control-attribution {
   display: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 380px) {
+  .phone-row {
+    grid-template-columns: 1fr;
+  }
+
+  .home-overlay h2 {
+    font-size: 33px;
+  }
+
+  .ticket-card-big .ticket-title {
+    font-size: 27px;
+  }
 }
 
 /* DESKTOP PREVIEW */
@@ -996,8 +1128,8 @@ button {
 @media (min-width: 900px) {
   body {
     background:
-      radial-gradient(circle at top, rgba(34, 197, 94, 0.22), transparent 38%),
-      #06100b;
+      radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 24%),
+      linear-gradient(135deg, #010302 0%, #07110b 42%, #020503 100%);
   }
 
   .app-shell,
@@ -1007,295 +1139,7 @@ button {
     min-height: 860px;
     height: 860px;
     border-radius: 42px;
-    border: 10px solid #111;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    border: 10px solid #0b0f0c;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.62);
   }
-}
-/* =========================
-   SMART TOURS — COLOR UPGRADE
-   Cola isto no fim do App.css
-========================= */
-
-body {
-  background:
-    radial-gradient(circle at top left, rgba(34, 197, 94, 0.28), transparent 34%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.18), transparent 32%),
-    linear-gradient(135deg, #03140b 0%, #052014 45%, #06100b 100%);
-}
-
-/* Fundo geral da app */
-.app-shell,
-.map-screen {
-  background:
-    linear-gradient(180deg, #f5fff7 0%, #e7f8ec 45%, #dff4e8 100%);
-}
-
-/* Header mais vivo */
-.app-top,
-.map-top {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(236, 253, 245, 0.96));
-  border: 1px solid rgba(22, 163, 74, 0.14);
-  box-shadow:
-    0 16px 40px rgba(22, 163, 74, 0.16),
-    0 10px 25px rgba(0, 0, 0, 0.10);
-}
-
-.brand-logo-main {
-  background: #dcfce7;
-  padding: 7px;
-  border-radius: 18px;
-}
-
-.brand-texts h1 {
-  background: linear-gradient(90deg, #0f172a, #16a34a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.brand-texts span {
-  color: #16a34a;
-}
-
-/* Botão de idioma */
-.app-top button,
-.map-top button {
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-  color: #15803d;
-  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.16);
-}
-
-/* Hero mais premium */
-.home-hero {
-  background:
-    linear-gradient(180deg, rgba(3, 20, 11, 0.08), rgba(3, 20, 11, 0.88)),
-    linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(14, 165, 233, 0.08)),
-    url("https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1200&q=80");
-  background-size: cover;
-  background-position: center;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-.hero-badge {
-  background: rgba(34, 197, 94, 0.25);
-  border: 1px solid rgba(187, 247, 208, 0.45);
-  color: #ecfdf5;
-}
-
-.home-overlay h2 {
-  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-}
-
-.hero-actions button:first-child,
-.primary-btn,
-.tour-footer button,
-.checkout-box button,
-.access-card button {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  color: white;
-  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
-}
-
-.hero-actions button:last-child,
-.ghost-btn,
-.secondary {
-  background: linear-gradient(135deg, #ffffff, #ecfdf5);
-  color: #166534;
-}
-
-/* Cards mais coloridos */
-.benefits-grid div,
-.tour-item,
-.cart-item,
-.ticket-card,
-.qr-ticket-card,
-.empty-box,
-.checkout-box,
-.payment-box,
-.profile-hero,
-.access-card,
-.tour-card {
-  border: 1px solid rgba(22, 163, 74, 0.12);
-  box-shadow:
-    0 16px 38px rgba(22, 163, 74, 0.10),
-    0 8px 22px rgba(0, 0, 0, 0.06);
-}
-
-.benefits-grid div:nth-child(1) {
-  background: linear-gradient(180deg, #ffffff, #ecfdf5);
-}
-
-.benefits-grid div:nth-child(2) {
-  background: linear-gradient(180deg, #ffffff, #eff6ff);
-}
-
-.benefits-grid div:nth-child(3) {
-  background: linear-gradient(180deg, #ffffff, #fefce8);
-}
-
-.benefits-grid div:nth-child(1) svg {
-  color: #16a34a;
-}
-
-.benefits-grid div:nth-child(2) svg {
-  color: #2563eb;
-}
-
-.benefits-grid div:nth-child(3) svg {
-  color: #ca8a04;
-}
-
-/* Títulos */
-.page-list h2,
-.section-head h3,
-.profile-hero h2,
-.tour-item h3,
-.cart-item h3,
-.ticket-card h3,
-.qr-ticket-card h3 {
-  color: #0f2417;
-}
-
-.page-intro,
-.tour-item p,
-.cart-item p,
-.profile-hero p {
-  color: #526258;
-}
-
-/* Tours */
-.tour-meta span {
-  background: #ecfdf5;
-  padding: 7px 10px;
-  border-radius: 999px;
-  color: #15803d;
-}
-
-.tour-item img {
-  border-bottom: 4px solid #bbf7d0;
-}
-
-.tour-info-row span {
-  background: linear-gradient(135deg, #ecfdf5, #dcfce7);
-  border: 1px solid rgba(22, 163, 74, 0.12);
-}
-
-/* Bilhetes com mais impacto */
-.ticket-card-big {
-  position: relative;
-  overflow: hidden;
-  border-radius: 30px;
-  box-shadow:
-    0 18px 42px rgba(0, 0, 0, 0.18),
-    0 10px 24px rgba(22, 163, 74, 0.14);
-}
-
-.ticket-card-big::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top right, rgba(34, 197, 94, 0.32), transparent 35%),
-    linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.76));
-  pointer-events: none;
-}
-
-.ticket-content {
-  position: relative;
-  z-index: 2;
-}
-
-.ticket-button {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  box-shadow: 0 10px 25px rgba(22, 163, 74, 0.3);
-}
-
-/* Carrinho */
-.bike-row {
-  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-  border: 1px solid rgba(22, 163, 74, 0.10);
-}
-
-.qty button {
-  background: white;
-  border: 1px solid #bbf7d0;
-  color: #16a34a;
-  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.12);
-}
-
-/* Check-out */
-.payment-options button.active {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-}
-
-.payment-details {
-  background:
-    linear-gradient(135deg, #ecfdf5, #dcfce7);
-  border: 1px solid rgba(22, 163, 74, 0.12);
-}
-
-/* Inputs */
-.page-list input,
-.account-form input,
-.access-card input {
-  background: #ffffff;
-  color: #102015;
-  border: 1px solid #bdecc9;
-  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.06);
-}
-
-.page-list input:focus,
-.account-form input:focus,
-.access-card input:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
-}
-
-/* Perfil */
-.profile-icon {
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28);
-}
-
-.profile-stats div {
-  background: linear-gradient(135deg, #ecfdf5, #dcfce7);
-}
-
-/* Bottom nav mais premium */
-.bottom-nav {
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(22, 163, 74, 0.16);
-  box-shadow:
-    0 16px 38px rgba(22, 163, 74, 0.16),
-    0 12px 28px rgba(0, 0, 0, 0.14);
-}
-
-.bottom-nav button.active {
-  background: #ecfdf5;
-  color: #16a34a;
-  border-radius: 18px;
-  margin: 7px;
-}
-
-/* Mapa */
-.map-top {
-  background: rgba(255, 255, 255, 0.96);
-}
-
-.access-card.locked {
-  border: 1px solid rgba(22, 163, 74, 0.18);
-}
-
-.lock-icon {
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-}
-
-/* Pequena animação nos botões */
-button {
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-}
-
-button:active {
-  transform: scale(0.97);
 }
