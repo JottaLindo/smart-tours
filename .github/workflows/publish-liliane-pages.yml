@@ -27,17 +27,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Assemble public site
+      - name: Measure valid prefix
         shell: bash
         run: |
           set -euo pipefail
-          OUT=/tmp/liliane-site/liliane-fortunato/index.html
-          mkdir -p /tmp/liliane-site/liliane-fortunato
+          OUT=/tmp/prefix.bin
           : > "$OUT"
           cd demos/liliane-fortunato
-
-          decode_one(){ echo "DECODING $1"; tr -d '[:space:]' < "$1" | base64 --decode >> "$OUT"; echo "OK $1"; }
-
+          decode_one(){ tr -d '[:space:]' < "$1" | base64 --decode >> "$OUT"; }
           decode_one parts/part00.b64
           decode_one parts/part01.b64
           decode_one parts/part02.b64
@@ -47,33 +44,6 @@ jobs:
           decode_one parts/part06.b64
           decode_one parts/part07.b64
           decode_one tail/p08_0.b64
-          decode_one tail/p08_1.b64
-          decode_one tail/p08_2.b64
-          decode_one tail/p08_3.b64
-          decode_one tail/p09_0.b64
-          decode_one tail/p09_1.b64
-          decode_one tail/p09_2.b64
-          decode_one tail/p10_0.b64
-          decode_one tail/p10_1.b64
-
-          test -s "$OUT"
-          grep -q '<title>Liliane Fortunato' "$OUT"
-          grep -q '</html>' "$OUT"
-
-          cat > /tmp/liliane-site/index.html <<'EOF'
-          <!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./liliane-fortunato/"><title>Liliane Fortunato</title></head><body><a href="./liliane-fortunato/">Abrir Liliane Fortunato</a></body></html>
-          EOF
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: /tmp/liliane-site
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "VALID_PREFIX_BYTES=$(wc -c < "$OUT")"
+          tail -c 80 "$OUT" | base64 | tr -d '\n' | sed 's/^/VALID_PREFIX_TAIL_B64=/'
+          exit 1
