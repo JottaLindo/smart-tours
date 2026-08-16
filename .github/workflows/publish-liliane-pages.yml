@@ -36,8 +36,8 @@ jobs:
           : > "$OUT"
           cd demos/liliane-fortunato
 
-          decode_one(){ tr -d '[:space:]' < "$1" | base64 --decode >> "$OUT"; }
-          decode_group(){ cat "$@" | tr -d '[:space:]' | base64 --decode >> "$OUT"; }
+          decode_one(){ echo "DECODING $1"; tr -d '[:space:]' < "$1" | base64 --decode >> "$OUT"; echo "OK $1"; }
+          decode_group(){ label="$1"; shift; echo "DECODING $label"; cat "$@" | tr -d '[:space:]' | base64 --decode >> "$OUT"; echo "OK $label"; }
 
           decode_one parts/part00.b64
           decode_one parts/part01.b64
@@ -47,9 +47,9 @@ jobs:
           decode_one parts/part05.b64
           decode_one parts/part06.b64
           decode_one parts/part07.b64
-          decode_group tail/p08_0.b64 tail/p08_1.b64 tail/p08_2.b64 tail/p08_3.b64
-          decode_group tail/p09_0.b64 tail/p09_1.b64 tail/p09_2.b64
-          decode_group tail/p10_0.b64 tail/p10_1.b64
+          decode_group p08 tail/p08_0.b64 tail/p08_1.b64 tail/p08_2.b64 tail/p08_3.b64
+          decode_group p09 tail/p09_0.b64 tail/p09_1.b64 tail/p09_2.b64
+          decode_group p10 tail/p10_0.b64 tail/p10_1.b64
 
           test -s "$OUT"
           grep -q '<title>Liliane Fortunato' "$OUT"
