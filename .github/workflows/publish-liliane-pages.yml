@@ -43,7 +43,7 @@ jobs:
             cat parts/part06.b64
             cat parts/part07.b64
             cat tail/p08_0.b64 tail/p08_1.b64 tail/p08_2.b64 tail/p08_3.b64
-            cat tail/p09_0.b64 tail/p09_1.b64 tail/p09_2.b64 tail/p09_3.b64
+            cat tail/p09_0.b64 tail/p09_1.b64 tail/p09_2.b64
             cat tail/p10_0.b64 tail/p10_1.b64
           } | tr -d '[:space:]' | base64 --decode > /tmp/liliane-site/liliane-fortunato/index.html
 
