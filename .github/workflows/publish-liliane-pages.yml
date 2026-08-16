@@ -46,14 +46,15 @@ jobs:
           fetch_blob 1364714ef5df325c834b46d26f0b4fbca12df204 /tmp/liliane-parts/part1.bin
           fetch_blob 9ebd70238bc41bff34974f7e895e93edaafc7559 /tmp/liliane-parts/part2.bin
 
+          echo "881bc9bbae4806649c2f61ed6743cdde1adacac99d0b456a60038dee3b8a9733  /tmp/liliane-parts/part0.bin" | sha256sum -c -
+          echo "3c7c6cf07b9ea99ce72ce5e50fc149c7f04eaf7a78f9c6457bdbd6a5429264d0  /tmp/liliane-parts/part1.bin" | sha256sum -c -
+          echo "f215aaa25e1859414d3c7bb2636fc0941c6e6f50116137ba87757e80177d39c7  /tmp/liliane-parts/part2.bin" | sha256sum -c -
+
           cat /tmp/liliane-parts/part0.bin /tmp/liliane-parts/part1.bin /tmp/liliane-parts/part2.bin > /tmp/liliane-v3.html.gz
           echo "545740331e543be2f3bf782ef82dea6b6d5042a2e8e431020e6e35deeebb725d  /tmp/liliane-v3.html.gz" | sha256sum -c -
 
           gzip -dc /tmp/liliane-v3.html.gz > /tmp/liliane-site/liliane-fortunato/index.html
           echo "db5fd21b67605c385416df65bcb00c8ea95b6f912b739f0750666fe2d12816c9  /tmp/liliane-site/liliane-fortunato/index.html" | sha256sum -c -
-
-          grep -q '<title>Liliane Fortunato' /tmp/liliane-site/liliane-fortunato/index.html
-          grep -q '</html>' /tmp/liliane-site/liliane-fortunato/index.html
 
           cat > /tmp/liliane-site/index.html <<'EOF'
           <!doctype html><html lang="pt"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./liliane-fortunato/"><title>Liliane Fortunato</title></head><body><a href="./liliane-fortunato/">Abrir Liliane Fortunato</a></body></html>
