@@ -42,15 +42,19 @@ jobs:
               > "$out"
           }
 
-          fetch_blob be895a947ae3756a269b97245b8f256cb5e62e8d /tmp/liliane-parts/part0.bin
-          fetch_blob 1364714ef5df325c834b46d26f0b4fbca12df204 /tmp/liliane-parts/part1.bin
-          fetch_blob 9ebd70238bc41bff34974f7e895e93edaafc7559 /tmp/liliane-parts/part2.bin
+          fetch_blob be895a947ae3756a269b97245b8f256cb5e62e8d /tmp/liliane-parts/g0.bin
+          fetch_blob 7d0114cc8fbb106416c729fcebe182175ca8d1fd /tmp/liliane-parts/g1a.bin
+          fetch_blob 51f8a76e3349f3bdebc24747eaaf398a8ca6601f /tmp/liliane-parts/g1b.bin
+          fetch_blob 289d5ea77e92db2bb359906382a81d3aaf853991 /tmp/liliane-parts/g1c.bin
+          fetch_blob 9ebd70238bc41bff34974f7e895e93edaafc7559 /tmp/liliane-parts/g2.bin
 
-          echo "881bc9bbae4806649c2f61ed6743cdde1adacac99d0b456a60038dee3b8a9733  /tmp/liliane-parts/part0.bin" | sha256sum -c -
-          echo "3c7c6cf07b9ea99ce72ce5e50fc149c7f04eaf7a78f9c6457bdbd6a5429264d0  /tmp/liliane-parts/part1.bin" | sha256sum -c -
-          echo "f215aaa25e1859414d3c7bb2636fc0941c6e6f50116137ba87757e80177d39c7  /tmp/liliane-parts/part2.bin" | sha256sum -c -
+          echo "881bc9bbae4806649c2f61ed6743cdde1adacac99d0b456a60038dee3b8a9733  /tmp/liliane-parts/g0.bin" | sha256sum -c -
+          echo "dc38fe3eb68935a1cda17e42681dc2094c445d5945e77bed46f3c01e86e11e4d  /tmp/liliane-parts/g1a.bin" | sha256sum -c -
+          echo "288ba58429d1948edc7e66a109eb18fdad6872f42ed7c6b7d069b5629de0e834  /tmp/liliane-parts/g1b.bin" | sha256sum -c -
+          echo "d45377a3fecbab4eab65828aa69ae640c37067bc9f3af7cb838bf830ac98a247  /tmp/liliane-parts/g1c.bin" | sha256sum -c -
+          echo "f215aaa25e1859414d3c7bb2636fc0941c6e6f50116137ba87757e80177d39c7  /tmp/liliane-parts/g2.bin" | sha256sum -c -
 
-          cat /tmp/liliane-parts/part0.bin /tmp/liliane-parts/part1.bin /tmp/liliane-parts/part2.bin > /tmp/liliane-v3.html.gz
+          cat /tmp/liliane-parts/g0.bin /tmp/liliane-parts/g1a.bin /tmp/liliane-parts/g1b.bin /tmp/liliane-parts/g1c.bin /tmp/liliane-parts/g2.bin > /tmp/liliane-v3.html.gz
           echo "545740331e543be2f3bf782ef82dea6b6d5042a2e8e431020e6e35deeebb725d  /tmp/liliane-v3.html.gz" | sha256sum -c -
 
           gzip -dc /tmp/liliane-v3.html.gz > /tmp/liliane-site/liliane-fortunato/index.html
