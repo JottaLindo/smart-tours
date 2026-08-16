@@ -13,45 +13,27 @@ html,body{height:100%;margin:0}body{display:grid;place-items:center;background:#
 <script>
 (async()=>{
   const root='https://raw.githubusercontent.com/JottaLindo/smart-tours/main/demos/liliane-fortunato/';
-  const fullParts=[];
-  for(let i=0;i<8;i++){
-    const n=`parts/part${String(i).padStart(2,'0')}.b64`;
+  const files=[
+    'parts/part00.b64','parts/part01.b64','parts/part02.b64','parts/part03.b64',
+    'parts/part04.b64','parts/part05.b64','parts/part06.b64','parts/part07.b64',
+    'tail/p08_0.b64','tail/p08_1.b64','tail/p08_2.b64','tail/p08_3.b64',
+    'tail/p09_0.b64','tail/p09_1.b64','tail/p09_2.b64',
+    'tail/p10_0.b64','tail/p10_1.b64'
+  ];
+  let b64='';
+  for(const n of files){
     const r=await fetch(root+n,{cache:'no-store'});
     if(!r.ok) throw new Error(n+' '+r.status);
-    fullParts.push((await r.text()).replace(/\s/g,''));
+    b64+=(await r.text()).replace(/\s/g,'');
   }
-  for(const p of ['08','09']){
-    let s='';
-    for(let i=0;i<4;i++){
-      const n=`tail/p${p}_${i}.b64`;
-      const r=await fetch(root+n,{cache:'no-store'});
-      if(!r.ok) throw new Error(n+' '+r.status);
-      s+=(await r.text()).replace(/\s/g,'');
-    }
-    fullParts.push(s);
-  }
-  let s10='';
-  for(let i=0;i<2;i++){
-    const n=`tail/p10_${i}.b64`;
-    const r=await fetch(root+n,{cache:'no-store'});
-    if(!r.ok) throw new Error(n+' '+r.status);
-    s10+=(await r.text()).replace(/\s/g,'');
-  }
-  fullParts.push(s10);
-  const arrays=[]; let total=0;
-  for(const b64 of fullParts){
-    const bin=atob(b64);
-    const a=new Uint8Array(bin.length);
-    for(let j=0;j<bin.length;j++) a[j]=bin.charCodeAt(j);
-    arrays.push(a); total+=a.length;
-  }
-  const merged=new Uint8Array(total); let off=0;
-  for(const a of arrays){merged.set(a,off);off+=a.length;}
-  const html=new TextDecoder('utf-8').decode(merged);
+  const bin=atob(b64);
+  const bytes=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  const html=new TextDecoder('utf-8').decode(bytes);
   if(!html.includes('<title>Liliane Fortunato') || !html.includes('</html>')) throw new Error('ficheiro final inválido');
   document.open(); document.write(html); document.close();
 })().catch(err=>{
-  document.body.innerHTML='<div style="max-width:620px;padding:32px;text-align:center"><h1 style="font-family:Georgia,serif">Não foi possível abrir a demo.</h1><p>Atualiza a página e tenta novamente.</p><small>'+String(err)+'</small></div>';
+  document.body.innerHTML='<div style="max-width:620px;padding:32px;text-align:center"><h1 style="font-family:Georgia,serif">Não foi possível abrir a demo.</h1><p>Erro: '+String(err)+'</p></div>';
 });
 </script>
 </body>
