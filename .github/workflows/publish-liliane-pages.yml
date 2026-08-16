@@ -1,0 +1,70 @@
+name: Publish Liliane to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-liliane-pages.yml'
+      - 'demos/liliane-fortunato/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assemble public site
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/liliane-site/liliane-fortunato
+          cd demos/liliane-fortunato
+          {
+            cat parts/part00.b64
+            cat parts/part01.b64
+            cat parts/part02.b64
+            cat parts/part03.b64
+            cat parts/part04.b64
+            cat parts/part05.b64
+            cat parts/part06.b64
+            cat parts/part07.b64
+            cat tail/p08_0.b64 tail/p08_1.b64 tail/p08_2.b64 tail/p08_3.b64
+            cat tail/p09_0.b64 tail/p09_1.b64 tail/p09_2.b64 tail/p09_3.b64
+            cat tail/p10_0.b64 tail/p10_1.b64
+          } | tr -d '[:space:]' | base64 --decode > /tmp/liliane-site/liliane-fortunato/index.html
+
+          test -s /tmp/liliane-site/liliane-fortunato/index.html
+          grep -q '<title>Liliane Fortunato' /tmp/liliane-site/liliane-fortunato/index.html
+          grep -q '</html>' /tmp/liliane-site/liliane-fortunato/index.html
+
+          cat > /tmp/liliane-site/index.html <<'EOF'
+          <!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./liliane-fortunato/"><title>Liliane Fortunato</title></head><body><a href="./liliane-fortunato/">Abrir Liliane Fortunato</a></body></html>
+          EOF
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/liliane-site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
