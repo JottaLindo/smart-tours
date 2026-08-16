@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liliane Fortunato — A carregar</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#201916;color:#f8f1e9;font-family:Arial,sans-serif}body{display:grid;place-items:center}.box{text-align:center;padding:28px}.nail{width:62px;height:88px;border:1px solid rgba(248,241,233,.5);border-radius:32px 32px 20px 20px;margin:0 auto 20px;display:grid;place-items:center;font-family:Georgia,serif;font-style:italic;font-size:18px;animation:p 1.4s ease-in-out infinite}.line{width:220px;height:1px;background:rgba(255,255,255,.15);overflow:hidden;margin:20px auto 10px}.line i{display:block;height:100%;width:35%;background:#c97a68;animation:l 1s ease-in-out infinite}.small{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.65}@keyframes p{50%{transform:translateY(-5px);opacity:.7}}@keyframes l{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+</style>
+</head>
+<body>
+<div class="box"><div class="nail">LF</div><div>Liliane Fortunato</div><div class="line"><i></i></div><div class="small">a abrir a experiência</div></div>
+<script>
+(async()=>{
+  const shas=[
+    'be895a947ae3756a269b97245b8f256cb5e62e8d',
+    '7d0114cc8fbb106416c729fcebe182175ca8d1fd',
+    '51f8a76e3349f3bdebc24747eaaf398a8ca6601f',
+    '289d5ea77e92db2bb359906382a81d3aaf853991',
+    '9ebd70238bc41bff34974f7e895e93edaafc7559'
+  ];
+  const chunks=[];
+  for(const sha of shas){
+    const r=await fetch('https://api.github.com/repos/JottaLindo/smart-tours/git/blobs/'+sha,{headers:{Accept:'application/vnd.github+json'}});
+    if(!r.ok) throw new Error('Não foi possível carregar o site ('+r.status+').');
+    const d=await r.json();
+    const s=(d.content||'').replace(/\s/g,'');
+    const bin=atob(s);
+    const a=new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) a[i]=bin.charCodeAt(i);
+    chunks.push(a);
+  }
+  if(typeof DecompressionStream==='undefined') throw new Error('Este browser não suporta a abertura automática. Usa Chrome, Edge ou Safari atualizado.');
+  const zipped=new Blob(chunks,{type:'application/gzip'});
+  const stream=zipped.stream().pipeThrough(new DecompressionStream('gzip'));
+  const html=await new Response(stream).text();
+  if(!html.includes('<title>Liliane Fortunato')||!html.includes('</html>')) throw new Error('O ficheiro final não passou a validação.');
+  document.open();document.write(html);document.close();
+})().catch(e=>{
+  document.body.innerHTML='<div style="max-width:600px;padding:32px;text-align:center"><h1 style="font-family:Georgia,serif">Erro ao abrir a apresentação</h1><p style="line-height:1.6;opacity:.8">'+String(e.message||e)+'</p></div>';
+});
+</script>
+</body>
+</html>
