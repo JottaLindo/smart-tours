@@ -47,10 +47,7 @@ jobs:
           echo "545740331e543be2f3bf782ef82dea6b6d5042a2e8e431020e6e35deeebb725d  /tmp/liliane-v3.html.gz" | sha256sum -c -
           gzip -dc /tmp/liliane-v3.html.gz > /tmp/liliane-site/liliane-fortunato/index.html
           echo "db5fd21b67605c385416df65bcb00c8ea95b6f912b739f0750666fe2d12816c9  /tmp/liliane-site/liliane-fortunato/index.html" | sha256sum -c -
-
-          cat > /tmp/liliane-site/index.html <<'EOF'
-          <!doctype html><html lang="pt"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./liliane-fortunato/"><title>Liliane Fortunato</title></head><body><a href="./liliane-fortunato/">Abrir Liliane Fortunato</a></body></html>
-          EOF
+          cp /tmp/liliane-site/liliane-fortunato/index.html /tmp/liliane-site/index.html
           touch /tmp/liliane-site/.nojekyll
 
       - name: Push site to gh-pages
@@ -63,6 +60,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Publish Liliane Fortunato V3"
+          git commit -m "Publish Liliane Fortunato V3 at root"
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push --force origin gh-pages
