@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liliane Fortunato — Gabinete de Estética, Benfica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f8f1e9; --cream-2:#f1e6da; --ink:#2b211c; --rose:#b1594f; --rose-2:#c97a68;
+    --gold:#a9824c; --dim:#8a7a6c; --line:rgba(43,33,28,0.12); --green:#5c8a63;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--ink); font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important; scroll-behavior:auto!important;} }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+  input,select{font-family:inherit;}
+  .wrap{max-width:1440px; margin:0 auto; padding:0 34px;}
+  ::selection{background:var(--rose); color:var(--cream);}
+  :focus-visible{outline:2px solid var(--rose); outline-offset:3px;}
+  h1,h2,h3{font-family:'Playfair Display', serif; font-weight:600;}
+  .script{font-style:italic; font-weight:500; color:var(--rose);}
+
+  .glow-follow{position:absolute; width:340px; height:340px; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle, rgba(177,89,79,0.14), transparent 70%); transition:transform .18s ease-out; z-index:0;}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- NAV ---------- */
+  /* ---------- CINEMATIC ENTRANCE (scroll-driven) ---------- */
+  .cinema-wrap{height:180vh; position:relative;}
+  .cinema-sticky{position:sticky; top:0; height:100vh; overflow:hidden; background:var(--ink);}
+  .cinema-sky{position:absolute; inset:0; background:var(--ink); z-index:0;}
+  .cinema-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;}
+  .cinema-overlay{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(20,17,15,0.55) 0%, rgba(20,17,15,0.25) 45%, rgba(20,17,15,0.75) 100%);}
+  .cinema-topbar{position:absolute; top:26px; left:0; right:0; display:flex; justify-content:space-between; padding:0 30px; z-index:3;}
+  .cinema-topbar span{font-family:'JetBrains Mono','Inter',monospace; font-size:10.5px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(248,241,233,0.6);}
+  .cinema-text{position:absolute; left:6%; bottom:12%; z-index:3; will-change:transform, opacity;}
+  .cinema-text .eyebrow2{font-size:11.5px; letter-spacing:3px; text-transform:uppercase; color:var(--rose-2); margin-bottom:14px; display:block;}
+  .cinema-text h2{font-family:'Playfair Display', serif; font-size:clamp(38px, 6.4vw, 76px); color:var(--cream); line-height:1.02; font-weight:600;}
+  .cinema-scrollcue{position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:3; font-size:10.5px; letter-spacing:2px; color:rgba(248,241,233,0.55); display:flex; flex-direction:column; align-items:center; gap:8px;}
+  .cinema-scrollcue .ln{width:1px; height:30px; background:linear-gradient(rgba(248,241,233,0.7), transparent); animation:cinemacue 1.8s ease-in-out infinite;}
+  @keyframes cinemacue{0%{opacity:.2;}50%{opacity:1;}100%{opacity:.2;}}
+  @media(max-width:700px){ .cinema-wrap{height:150vh;} .cinema-text{left:20px; right:20px; bottom:14%;} .cinema-bottle{width:52vw;} }
+
+  header{position:sticky; top:0; z-index:250; background:rgba(248,241,233,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav{display:flex; align-items:center; justify-content:space-between; max-width:1440px; margin:0 auto; padding:14px 34px; gap:12px;}
+  .logo{display:flex; flex-direction:column; line-height:1.05; flex:none;}
+  .logo b{font-family:'Playfair Display', serif; font-size:18px; font-weight:600;}
+  .logo span{font-size:9.5px; letter-spacing:2.2px; text-transform:uppercase; color:var(--dim); margin-top:2px;}
+  .navlinks{display:flex; gap:24px; list-style:none; align-items:center;}
+  .navlinks a, .navlinks button.linklike{background:none; border:none; font-size:13px; letter-spacing:0.3px; color:var(--ink); position:relative; padding:6px 0;}
+  .navlinks a::after, .navlinks button.linklike::after{content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--rose); transition:width .25s ease;}
+  .navlinks a:hover::after, .navlinks button.linklike:hover::after{width:100%;}
+  .nav-right{display:flex; align-items:center; gap:10px; flex:none;}
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:100px; overflow:hidden; flex:none;}
+  .lang-toggle button{padding:7px 11px; font-size:11.5px; font-weight:600; background:transparent; border:none; color:var(--dim);}
+  .lang-toggle button.active{background:var(--ink); color:var(--cream);}
+  .nav-cta{background:var(--rose); color:var(--cream); font-size:13px; letter-spacing:0.4px; padding:10px 18px; border-radius:100px; transition:background .2s, transform .15s; white-space:nowrap;}
+  .nav-cta:hover{background:#96473f; transform:translateY(-2px);}
+  .user-chip{display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:100px; padding:6px 12px 6px 6px; background:#fff;}
+  .user-chip .av{width:24px; height:24px; border-radius:50%; background:var(--rose); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700;}
+  .user-chip span{font-size:12.5px; font-weight:500; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .burger{display:none; flex-direction:column; gap:4px; background:none; border:none; padding:6px;}
+  .burger span{width:22px; height:2px; background:var(--ink); border-radius:2px;}
+  @media(max-width:960px){
+    .navlinks{position:fixed; top:64px; left:0; right:0; background:var(--cream); flex-direction:column; align-items:flex-start;
+      padding:18px 24px; border-bottom:1px solid var(--line); box-shadow:0 16px 30px rgba(0,0,0,0.08);
+      transform:translateY(-12px); opacity:0; pointer-events:none; transition:all .25s ease; gap:4px;}
+    .navlinks.show{transform:translateY(0); opacity:1; pointer-events:auto;}
+    .navlinks a, .navlinks button.linklike{padding:11px 0; width:100%;}
+    .burger{display:flex;}
+    .nav-cta{padding:9px 14px; font-size:12px;}
+    .lang-toggle button{padding:6px 9px; font-size:11px;}
+    .user-chip span{max-width:60px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:70px 0 80px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; top:-220px; right:-220px; width:560px; height:560px; border-radius:50%;
+    background:radial-gradient(circle, rgba(177,89,79,0.16), transparent 70%); pointer-events:none;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center; position:relative; z-index:2;}
+  .rating-badge{display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); padding:9px 16px 9px 10px; border-radius:100px; margin-bottom:26px; box-shadow:0 6px 18px rgba(43,33,28,0.06); animation:floaty 4s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+  .rating-badge .stars{color:var(--gold); font-size:13px; letter-spacing:1px;}
+  .rating-badge b{font-size:13px;}
+  .rating-badge span{font-size:12px; color:var(--dim);}
+  .eyebrow{display:block; font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--rose); margin-bottom:16px;}
+  h1{font-size:clamp(34px, 5vw, 54px); line-height:1.12; letter-spacing:-0.5px;}
+  .hero p.lead{font-size:16.5px; line-height:1.75; color:#5c4f45; max-width:440px; margin-top:22px; font-weight:300;}
+  .hero-actions{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn-primary{background:var(--rose); color:var(--cream); padding:15px 26px; font-size:13.5px; letter-spacing:0.5px; border-radius:100px; display:inline-flex; align-items:center; gap:8px; border:none; transition:background .2s, transform .15s, box-shadow .2s; white-space:nowrap;}
+  .btn-primary:hover{background:#96473f; transform:translateY(-2px); box-shadow:0 12px 26px rgba(177,89,79,0.28);}
+  .btn-ghost{border:1px solid var(--ink); background:transparent; color:var(--ink); padding:15px 26px; font-size:13.5px; letter-spacing:0.5px; border-radius:100px; transition:background .2s;}
+  .btn-ghost:hover{background:var(--cream-2);}
+  .btn-block{width:100%; text-align:center; justify-content:center;}
+  .btn-sm{padding:9px 16px; font-size:12.5px;}
+
+  .hero-art{position:relative; aspect-ratio:1/1;}
+  .hero-art .dashring{position:absolute; inset:6%; border-radius:50%; border:1px dashed rgba(177,89,79,0.4); animation:spin 50s linear infinite;}
+  .hero-art .dashring2{position:absolute; inset:16%; border-radius:50%; border:1px dashed rgba(169,130,76,0.4); animation:spin 70s linear infinite reverse;}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  .hero-photo-wrap{position:absolute; inset:12%; border-radius:44% 56% 62% 38% / 46% 42% 58% 54%; overflow:hidden;
+    box-shadow:0 30px 60px rgba(43,33,28,0.20); animation:blobMorph 12s ease-in-out infinite;}
+  @keyframes blobMorph{0%,100%{border-radius:44% 56% 62% 38% / 46% 42% 58% 54%;} 50%{border-radius:58% 42% 40% 60% / 55% 60% 40% 45%;}}
+  .hero-photo-wrap img, .hero-photo-wrap video{width:100%; height:100%; object-fit:cover; display:block;}
+  .hero-float-card{position:absolute; left:-4%; bottom:6%; background:#fff; border-radius:14px; padding:12px 16px;
+    box-shadow:0 16px 34px rgba(43,33,28,0.16); animation:floaty 4s ease-in-out infinite; z-index:2;}
+  .hero-float-card .stars{color:var(--gold); font-size:11px; letter-spacing:1px; display:block;}
+  .hero-float-card b{display:block; font-family:'Playfair Display', serif; font-size:14px; margin-top:3px;}
+  .hero-float-card2{position:absolute; right:0%; top:4%; background:var(--ink); color:var(--cream); border-radius:14px; padding:11px 14px;
+    box-shadow:0 16px 34px rgba(43,33,28,0.2); animation:floaty 4s ease-in-out infinite; animation-delay:.6s; z-index:2;}
+  .hero-float-card2 span{font-size:10.5px; color:#c7bcae; display:block;}
+  .hero-float-card2 b{font-family:'Playfair Display', serif; font-size:13.5px;}
+  .hero-stats{display:flex; gap:34px; margin-top:38px; flex-wrap:wrap;}
+  .hero-stats div b{font-family:'Playfair Display', serif; font-size:26px; display:block;}
+  .hero-stats div span{font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--dim);}
+
+  .marquee{background:var(--ink); color:var(--cream); padding:14px 0; overflow:hidden;}
+  .marquee-track{display:flex; gap:40px; white-space:nowrap; width:max-content; font-family:'Playfair Display', serif; font-style:italic; font-size:14px; animation:mq 26s linear infinite;}
+  @keyframes mq{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  .marquee-track span{color:var(--rose-2);}
+
+  .section{padding:80px 0;}
+  .section-head{margin-bottom:46px; max-width:600px;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{font-size:clamp(28px, 3.6vw, 40px); line-height:1.1;}
+  .section-head p{font-size:15px; color:var(--dim); margin-top:14px; line-height:1.7; font-weight:300;}
+
+  .about{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
+  .about-visual{background:var(--cream-2); border:1px solid var(--line); border-radius:8px; aspect-ratio:5/4; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; transition:transform .3s ease;}
+  .about-visual:hover{transform:translateY(-4px);}
+  .about-visual .quote{font-family:'Playfair Display', serif; font-style:italic; font-size:20px; text-align:center; padding:40px; line-height:1.5; color:var(--ink);}
+  .about-visual .quote span{display:block; margin-top:16px; font-family:'Inter'; font-style:normal; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--dim);}
+  .about-text p{font-size:15px; line-height:1.85; color:#4d423a; font-weight:300; margin-bottom:16px;}
+  .about-stats{display:flex; gap:36px; margin-top:28px; padding-top:24px; border-top:1px solid var(--line); flex-wrap:wrap;}
+  .about-stats div b{font-family:'Playfair Display', serif; font-size:28px; display:block;}
+  .about-stats div span{font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim);}
+
+  .services{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .service{background:var(--cream); padding:30px 26px; transition:background .25s, transform .25s;}
+  .service:hover{background:var(--cream-2); transform:translateY(-3px);}
+  .service .snum{font-family:'Playfair Display', serif; font-style:italic; font-size:24px; color:var(--rose); display:block; margin-bottom:14px;}
+  .service h3{font-size:18px; margin-bottom:8px;}
+  .service p{font-size:13px; line-height:1.6; color:var(--dim); font-weight:300; margin-bottom:12px;}
+  .service .pick{font-size:12px; color:var(--rose); font-weight:600; letter-spacing:0.3px; display:inline-flex; align-items:center; gap:5px; background:none; border:none; padding:0;}
+  .service .pick:hover{text-decoration:underline;}
+
+  /* pricing */
+  .price-table{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff;}
+  .price-row{display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid var(--line); gap:14px;}
+  .price-row:last-child{border-bottom:none;}
+  .price-row:hover{background:var(--cream-2);}
+  .price-row .pname{font-weight:600; font-size:15px;}
+  .price-row .pdur{font-size:12px; color:var(--dim); margin-top:2px;}
+  .price-row .pval{font-family:'Playfair Display', serif; font-size:19px; color:var(--rose); flex:none;}
+  .price-note{margin-top:16px; font-size:12.5px; color:var(--dim); display:flex; align-items:center; gap:8px;}
+  .price-note::before{content:"●"; color:var(--gold); font-size:8px;}
+
+  .video-feature{position:relative; border-radius:14px; overflow:hidden; aspect-ratio:21/9; margin-bottom:20px; box-shadow:0 24px 50px rgba(43,33,28,0.18);}
+  .video-feature video{width:100%; height:100%; object-fit:cover; display:block;}
+  .video-feature .vf-overlay{position:absolute; inset:0; background:linear-gradient(90deg, rgba(43,33,28,0.65) 0%, rgba(43,33,28,0.05) 55%, transparent 100%); display:flex; align-items:flex-end; padding:26px;}
+  .video-feature .vf-text{color:#fff;}
+  .video-feature .vf-text b{font-family:'Playfair Display', serif; font-size:20px; display:block; margin-bottom:4px;}
+  .video-feature .vf-text span{font-size:12px; opacity:0.85;}
+  .gallery-3d{perspective:1400px;}
+
+  .gallery-note{display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--dim); background:var(--cream-2); border:1px solid var(--line); padding:8px 14px; border-radius:100px; margin-top:8px;}
+  .gallery-note::before{content:"●"; color:var(--rose); font-size:8px;}
+  .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .gcard{background:var(--cream-2); border:1px solid var(--line); border-radius:10px; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease;}
+  .gcard:hover{transform:translateY(-6px); box-shadow:0 18px 34px rgba(43,33,28,0.12);}
+  .gcard-art{aspect-ratio:4/5; position:relative; overflow:hidden;}
+  .gcard-art img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease;}
+  .gcard:hover .gcard-art img{transform:scale(1.08);}
+  .gcard-label{padding:14px 16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center;}
+  .gcard-label span{font-size:13px; font-weight:500;}
+  .gcard-label small{font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--dim);}
+
+  .testi-wrap{background:var(--ink); color:var(--cream);}
+  .testi-wrap .section-head .eyebrow{color:var(--rose-2);}
+  .testi-wrap .section-head h2{color:var(--cream);}
+  .testi-wrap .section-head p{color:#c7bcae;}
+  .tgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .tcard{border:1px solid rgba(248,241,233,0.15); padding:26px; border-radius:8px; transition:border-color .25s, transform .25s;}
+  .tcard:hover{border-color:rgba(177,89,79,0.5); transform:translateY(-4px);}
+  .tcard .stars{color:var(--gold); font-size:12px; letter-spacing:2px; margin-bottom:14px; display:block;}
+  .tcard p{font-family:'Playfair Display', serif; font-style:italic; font-size:15.5px; line-height:1.6; margin-bottom:16px;}
+  .tcard .who{font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#a89b8c;}
+
+  .info-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:50px; align-items:start;}
+  .hours-card{background:var(--cream-2); border:1px solid var(--line); border-radius:8px; padding:30px;}
+  .hours-card h3{font-size:19px; margin-bottom:18px;}
+  .hours-row{display:flex; justify-content:space-between; padding:10px 0; border-top:1px solid var(--line); font-size:13.5px;}
+  .hours-row:first-of-type{border-top:none;}
+  .hours-row span:first-child{color:var(--dim);}
+  .hours-row.closed span:last-child{color:var(--dim);}
+  .hours-row.today{color:var(--rose); font-weight:600;}
+  .contact-block{margin-top:22px; padding-top:20px; border-top:1px solid var(--line);}
+  .contact-block a{display:flex; align-items:center; gap:10px; font-size:13.5px; padding:6px 0;}
+  .map-card{border:1px solid var(--line); border-radius:8px; aspect-ratio:16/10; overflow:hidden;}
+  .map-card iframe{width:100%; height:100%; border:0; display:block; filter:grayscale(0.15) contrast(1.05);}
+  .addr-note{margin-top:16px; font-size:13px; color:var(--dim); line-height:1.6;}
+
+  footer{background:var(--cream-2); border-top:1px solid var(--line); padding:60px 0 26px;}
+  .cta-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; padding-bottom:40px; margin-bottom:34px; border-bottom:1px solid var(--line);}
+  .cta-row h2{font-size:clamp(24px,3.6vw,36px); max-width:480px; line-height:1.1;}
+  .foot-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:30px; font-size:13.5px;}
+  .foot-grid p{color:var(--dim); max-width:280px; line-height:1.6; margin-top:12px; font-weight:300;}
+  .foot-col h4{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--rose); margin-bottom:14px;}
+  .foot-col a, .foot-col button.linklike{display:block; padding:5px 0; font-size:13.5px; color:var(--ink); background:none; border:none; text-align:left;}
+  .foot-col a:hover, .foot-col button.linklike:hover{color:var(--rose);}
+  .fine{margin-top:36px; font-size:10.5px; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); padding-top:18px;}
+
+  .fab{position:fixed; right:16px; bottom:16px; z-index:300; background:var(--rose); color:var(--cream); border:none; padding:15px 20px; border-radius:100px;
+    font-size:13px; font-weight:600; letter-spacing:0.3px; display:flex; align-items:center; gap:9px; box-shadow:0 14px 30px rgba(177,89,79,0.35);
+    transition:transform .2s ease, box-shadow .2s ease; animation:fabPulse 3s ease-in-out infinite;}
+  .fab:hover{transform:translateY(-3px) scale(1.03);}
+  @keyframes fabPulse{0%,100%{box-shadow:0 14px 30px rgba(177,89,79,0.35);}50%{box-shadow:0 14px 30px rgba(177,89,79,0.15);}}
+  .fab .dot{width:7px; height:7px; border-radius:50%; background:#fff; animation:blink 1.6s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+  @media(max-width:600px){.fab span.txt{display:none;} .fab{padding:15px;}}
+
+  .chat-fab{position:fixed; left:16px; bottom:16px; z-index:300; background:var(--ink); color:var(--cream); border:none; width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 14px 30px rgba(43,33,28,0.3); transition:transform .2s ease;}
+  .chat-fab:hover{transform:scale(1.06);}
+  .chat-fab .badge{position:absolute; top:-4px; right:-4px; width:15px; height:15px; border-radius:50%; background:var(--rose); border:2px solid var(--cream); animation:blink 1.8s ease-in-out infinite;}
+  .chat-panel{position:fixed; left:16px; bottom:82px; z-index:301; width:min(340px, calc(100vw - 32px)); background:var(--cream);
+    border-radius:16px; box-shadow:0 24px 60px rgba(43,33,28,0.28); border:1px solid var(--line); overflow:hidden;
+    transform:translateY(16px) scale(.96); opacity:0; pointer-events:none; transition:all .25s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; max-height:64vh;}
+  .chat-panel.show{transform:translateY(0) scale(1); opacity:1; pointer-events:auto;}
+  .chat-head{background:var(--ink); color:var(--cream); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; flex:none;}
+  .chat-head .chn{display:flex; align-items:center; gap:10px;}
+  .chat-head .chn .dot{width:8px; height:8px; border-radius:50%; background:#5c8a63; box-shadow:0 0 0 3px rgba(92,138,99,0.25);}
+  .chat-head b{font-family:'Playfair Display', serif; font-size:14px;}
+  .chat-head span{font-size:10.5px; color:#c7bcae; display:block;}
+  .chat-head button{background:none; border:none; color:var(--cream); font-size:16px; opacity:0.7;}
+  .chat-body{padding:14px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:9px;}
+  .chat-msg{max-width:85%; padding:9px 12px; border-radius:12px; font-size:13px; line-height:1.5;}
+  .chat-msg.bot{background:var(--cream-2); align-self:flex-start; border-bottom-left-radius:3px;}
+  .chat-msg.user{background:var(--rose); color:#fff; align-self:flex-end; border-bottom-right-radius:3px;}
+  .chat-quick{display:flex; flex-wrap:wrap; gap:6px; padding:0 14px 10px;}
+  .chat-quick button{font-size:11px; padding:6px 10px; border-radius:100px; border:1px solid var(--line); background:#fff; transition:border-color .15s;}
+  .chat-quick button:hover{border-color:var(--rose);}
+  .chat-input-row{display:flex; gap:8px; padding:10px; border-top:1px solid var(--line); flex:none;}
+  .chat-input-row input{flex:1; padding:10px 13px; border:1px solid var(--line); border-radius:100px; font-size:13px; font-family:inherit;}
+  .chat-input-row button{background:var(--rose); color:#fff; border:none; width:36px; height:36px; border-radius:50%; flex:none; font-size:15px;}
+
+  .overlay-bg{position:fixed; inset:0; background:rgba(43,33,28,0.55); backdrop-filter:blur(3px); z-index:400; opacity:0; pointer-events:none; transition:opacity .3s ease;}
+  .overlay-bg.show{opacity:1; pointer-events:auto;}
+  .overlay-panel{position:fixed; top:0; right:0; bottom:0; width:min(480px, 100vw); background:var(--cream); z-index:401; box-shadow:-20px 0 60px rgba(0,0,0,0.2);
+    transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.8,.2,1); display:flex; flex-direction:column; overflow:hidden;}
+  .overlay-panel.show{transform:translateX(0);}
+  .overlay-panel.wide{width:min(620px, 100vw);}
+  .overlay-head{display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid var(--line); flex:none;}
+  .overlay-head h3{font-size:18px;}
+  .overlay-close{background:none; border:1px solid var(--line); width:32px; height:32px; border-radius:50%; font-size:15px; display:flex; align-items:center; justify-content:center; transition:background .2s, transform .2s; flex:none;}
+  .overlay-close:hover{background:var(--cream-2); transform:rotate(90deg);}
+  .overlay-body{padding:22px; overflow-y:auto; flex:1;}
+
+  .steps-track{display:flex; gap:8px; margin-bottom:22px;}
+  .steps-track .step-dot{flex:1; height:4px; background:var(--line); border-radius:100px; overflow:hidden;}
+  .steps-track .step-dot i{display:block; height:100%; width:0%; background:var(--rose); transition:width .4s ease;}
+  .steps-track .step-dot.active i, .steps-track .step-dot.done i{width:100%;}
+  .bk-step{display:none; animation:stepIn .35s ease;}
+  .bk-step.active{display:block;}
+  @keyframes stepIn{from{opacity:0; transform:translateX(14px);} to{opacity:1; transform:translateX(0);}}
+
+  .service-pick-list{display:flex; flex-direction:column; gap:9px;}
+  .service-pick{border:1px solid var(--line); border-radius:8px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; background:#fff; transition:border-color .2s, background .2s, transform .15s;}
+  .service-pick:hover{border-color:var(--rose); transform:translateX(2px);}
+  .service-pick.selected{border-color:var(--rose); background:var(--cream-2);}
+  .service-pick b{font-size:14px; font-weight:600; display:block;}
+  .service-pick span{font-size:11.5px; color:var(--dim);}
+  .service-pick .check{width:20px; height:20px; border-radius:50%; border:1.5px solid var(--line); flex:none; display:flex; align-items:center; justify-content:center; font-size:11px; color:transparent; transition:all .2s;}
+  .service-pick.selected .check{background:var(--rose); border-color:var(--rose); color:#fff;}
+
+  .day-scroller{display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px; -webkit-overflow-scrolling:touch;}
+  .day-chip{flex:none; width:58px; padding:11px 0; border-radius:10px; border:1px solid var(--line); background:#fff; text-align:center; transition:all .2s;}
+  .day-chip .dname{font-size:10px; letter-spacing:0.5px; text-transform:uppercase; color:var(--dim); display:block;}
+  .day-chip .dnum{font-family:'Playfair Display', serif; font-size:18px; display:block; margin-top:3px;}
+  .day-chip:hover{border-color:var(--rose);}
+  .day-chip.selected{background:var(--rose); border-color:var(--rose);}
+  .day-chip.selected .dname, .day-chip.selected .dnum{color:#fff;}
+  .day-chip:disabled{opacity:0.35; cursor:not-allowed;}
+
+  .time-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-bottom:20px;}
+  .time-chip{padding:11px 0; border-radius:8px; border:1px solid var(--line); background:#fff; font-size:13px; transition:all .2s;}
+  .time-chip:hover:not(:disabled){border-color:var(--rose);}
+  .time-chip.selected{background:var(--rose); border-color:var(--rose); color:#fff;}
+  .time-chip:disabled{opacity:0.3; text-decoration:line-through; cursor:not-allowed;}
+
+  .field{margin-bottom:15px;}
+  .field label{font-size:11.5px; letter-spacing:0.5px; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:7px;}
+  .field input{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px; font-family:inherit; background:#fff; transition:border-color .2s;}
+  .field input:focus{border-color:var(--rose); outline:none;}
+  .field-err{color:#a33; font-size:12px; margin-top:5px; display:none;}
+
+  .summary-card{background:var(--cream-2); border:1px solid var(--line); border-radius:8px; padding:18px; margin-bottom:18px;}
+  .summary-row{display:flex; justify-content:space-between; font-size:13px; padding:6px 0;}
+  .summary-row span:first-child{color:var(--dim);}
+  .step-actions{display:flex; gap:10px; margin-top:22px;}
+  .step-actions .btn-ghost, .step-actions .btn-primary{flex:1; text-align:center; justify-content:center;}
+
+  .success-screen{text-align:center; padding:16px 0;}
+  .success-ring{width:70px; height:70px; border-radius:50%; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:28px; animation:popIn .5s cubic-bezier(.2,1.4,.4,1);}
+  @keyframes popIn{0%{transform:scale(0);} 70%{transform:scale(1.15);} 100%{transform:scale(1);}}
+  .confetti-wrap{position:relative; height:0;}
+  .confetti{position:absolute; top:-10px; width:8px; height:8px; border-radius:2px; opacity:0; animation:confettiFall 1.4s ease-out forwards;}
+  @keyframes confettiFall{0%{opacity:1; transform:translateY(0) rotate(0);} 100%{opacity:0; transform:translateY(160px) rotate(400deg);}}
+
+  .empty-state{text-align:center; padding:44px 16px; color:var(--dim);}
+  .empty-state .big{font-size:36px; margin-bottom:12px;}
+
+  .booking-list{display:flex; flex-direction:column; gap:11px;}
+  .booking-item{border:1px solid var(--line); border-radius:8px; padding:15px 16px; background:#fff;}
+  .booking-item .bi-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:7px; gap:10px;}
+  .booking-item b{font-size:14px;}
+  .booking-item .bi-date{font-size:12px; color:var(--dim); margin-top:2px; display:block;}
+  .status-pill{font-size:10px; letter-spacing:0.4px; text-transform:uppercase; padding:4px 9px; border-radius:100px; flex:none; white-space:nowrap;}
+  .status-pill.confirmada{background:rgba(92,138,99,0.15); color:var(--green);}
+  .status-pill.pendente{background:rgba(169,130,76,0.18); color:var(--gold);}
+  .status-pill.cancelada{background:rgba(177,89,79,0.15); color:var(--rose);}
+  .bi-actions{display:flex; gap:8px; margin-top:11px; flex-wrap:wrap;}
+  .bi-actions button{font-size:11px; padding:7px 11px; border-radius:100px; border:1px solid var(--line); background:#fff; color:var(--ink); transition:all .15s;}
+  .bi-actions button:hover{border-color:var(--rose); color:var(--rose);}
+  .bi-actions button.danger:hover{border-color:#a33; color:#a33;}
+
+  .auth-tabs{display:flex; gap:4px; background:var(--cream-2); border-radius:100px; padding:4px; margin-bottom:22px;}
+  .auth-tabs button{flex:1; padding:10px 0; border-radius:100px; border:none; background:transparent; font-size:13px; font-weight:600; color:var(--dim);}
+  .auth-tabs button.active{background:var(--ink); color:var(--cream);}
+  .auth-form{display:none;}
+  .auth-form.active{display:block; animation:stepIn .3s ease;}
+  .auth-note{font-size:11.5px; color:var(--dim); margin-top:14px; line-height:1.6; background:var(--cream-2); border-radius:8px; padding:12px 14px;}
+
+  .stats-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px;}
+  .stats-strip div{background:var(--cream-2); border-radius:8px; padding:13px; text-align:center;}
+  .stats-strip b{font-family:'Playfair Display', serif; font-size:20px; display:block;}
+  .stats-strip span{font-size:9.5px; letter-spacing:0.5px; text-transform:uppercase; color:var(--dim);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{max-width:320px; margin:0 auto;}
+    .about{grid-template-columns:1fr;}
+    .services{grid-template-columns:1fr 1fr;}
+    .gallery{grid-template-columns:1fr 1fr;}
+    .tgrid{grid-template-columns:1fr;}
+    .info-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .time-grid{grid-template-columns:1fr 1fr;}
+    .overlay-panel, .overlay-panel.wide{width:100vw;}
+    .price-row{flex-wrap:wrap;}
+  }
+  @media (max-width:560px){
+    .section{padding:56px 0;}
+    .hero{padding:50px 0 60px;}
+    .services{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:1fr;}
+    .day-chip{width:52px;}
+    h1{font-size:clamp(30px,8vw,44px);}
+    .cta-row{flex-direction:column; align-items:flex-start;}
+    .cta-row .btn-primary{width:100%; justify-content:center;}
+  }
+
+  /* ---------- PREMIUM LOADING SCREEN ---------- */
+  body.loader-active{overflow:hidden;}
+  .site-loader{position:fixed; inset:0; z-index:9999; background:#201916; color:var(--cream); display:grid; place-items:center; overflow:hidden; transition:opacity .7s ease, visibility .7s ease;}
+  .site-loader.hide{opacity:0; visibility:hidden; pointer-events:none;}
+  .loader-glow{position:absolute; width:680px; height:680px; border-radius:50%; background:radial-gradient(circle, rgba(201,122,104,.20), rgba(177,89,79,.05) 45%, transparent 70%); filter:blur(4px); animation:loaderBreath 3s ease-in-out infinite;}
+  @keyframes loaderBreath{0%,100%{transform:scale(.9);opacity:.65}50%{transform:scale(1.08);opacity:1}}
+  .loader-inner{position:relative; z-index:2; width:min(560px,calc(100vw - 48px)); text-align:center;}
+  .loader-kicker{font-size:10px; letter-spacing:3.8px; text-transform:uppercase; color:#d8c9bd; margin-bottom:24px;}
+  .loader-nail{width:86px; height:122px; margin:0 auto 22px; border:1px solid rgba(248,241,233,.48); border-radius:44px 44px 26px 26px; position:relative; transform:rotate(8deg); box-shadow:inset 0 0 0 7px rgba(248,241,233,.035),0 22px 60px rgba(0,0,0,.25);}
+  .loader-nail::before{content:"LF"; position:absolute; inset:0; display:grid; place-items:center; font-family:'Playfair Display',serif; font-size:22px; font-style:italic; color:var(--cream); transform:rotate(-8deg);}
+  .loader-nail::after{content:""; position:absolute; left:13px; right:13px; top:12px; height:35%; border-radius:30px; background:linear-gradient(180deg,rgba(255,255,255,.22),transparent);}
+  .loader-title{font-family:'Playfair Display',serif; font-size:clamp(34px,4.2vw,58px); line-height:1; letter-spacing:-1px;}
+  .loader-sub{font-size:11px; text-transform:uppercase; letter-spacing:2.6px; color:#bcaea4; margin-top:14px;}
+  .loader-progress{height:1px; background:rgba(248,241,233,.16); margin:32px auto 12px; width:min(380px,78vw); overflow:hidden;}
+  .loader-progress i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--rose-2),var(--cream)); transition:width .08s linear;}
+  .loader-pct{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:2px; color:#c9bbb1;}
+
+  /* ---------- CINEMATIC NAIL FILM ---------- */
+  .cinema-wrap{height:185vh;}
+  .cinema-sticky{isolation:isolate;}
+  .cinema-sky{background:#140f0d;}
+  .cinema-video{filter:saturate(.82) contrast(1.05) brightness(.75); transform:scale(1.035);}
+  .cinema-overlay{background:linear-gradient(180deg,rgba(25,17,15,.48) 0%,rgba(25,17,15,.12) 40%,rgba(20,14,12,.72) 100%);}
+  .cinema-cloud{display:block; position:absolute; border-radius:50%; filter:blur(48px); opacity:.26; z-index:1; pointer-events:none;}
+  .cinema-cloud.c1{width:38vw;height:38vw;left:-12vw;top:-12vw;background:rgba(177,89,79,.42);}
+  .cinema-cloud.c2{width:30vw;height:30vw;right:-8vw;bottom:-10vw;background:rgba(169,130,76,.25);}
+  .cinema-cloud.c3{width:22vw;height:22vw;right:18vw;top:15vh;background:rgba(248,241,233,.13);}
+  .cinema-bottle{position:absolute; right:6%; top:50%; width:clamp(240px,22vw,390px); aspect-ratio:4/5.4; transform:translateY(-50%); z-index:2; border:1px solid rgba(248,241,233,.22); border-radius:26px; overflow:hidden; box-shadow:0 36px 90px rgba(0,0,0,.40); will-change:transform,opacity; background:#1b1512;}
+  .cinema-bottle video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.04);}
+  .cinema-bottle::after{content:"DETALHE / 01"; position:absolute; left:16px; bottom:14px; font-size:9px; letter-spacing:2px; color:rgba(248,241,233,.72); background:rgba(26,19,17,.48); padding:8px 10px; border-radius:100px; backdrop-filter:blur(8px);}
+  .cinema-text{max-width:700px;}
+  .cinema-text h2{font-size:clamp(46px,6vw,92px); letter-spacing:-1.5px;}
+  .cinema-topbar{padding:0 4.3%;}
+
+  /* ---------- DESKTOP AIR + SCALE ---------- */
+  @media(min-width:1200px){
+    .hero{padding:82px 0 92px; min-height:82vh; display:flex; align-items:center;}
+    .hero-grid{grid-template-columns:1fr .93fr; gap:86px;}
+    h1{font-size:clamp(48px,4.2vw,72px); max-width:720px;}
+    .hero p.lead{max-width:590px; font-size:17.5px;}
+    .hero-art{max-width:640px; width:100%; justify-self:end;}
+    .section{padding:92px 0;}
+    .section-head{max-width:760px;}
+    .section-head h2{font-size:clamp(38px,3.2vw,54px);}
+    .services{grid-template-columns:repeat(3,1fr);}
+    .gallery{grid-template-columns:repeat(3,1fr); gap:18px;}
+    .gcard-art{aspect-ratio:5/4;}
+  }
+
+  /* ---------- FACELESS VIDEO SHOWCASE ---------- */
+  .nail-film{background:#211916; color:var(--cream); padding:18px 0 92px; overflow:hidden;}
+  .nail-film-head{display:flex; align-items:end; justify-content:space-between; gap:30px; padding:52px 0 30px; border-top:1px solid rgba(248,241,233,.14);}
+  .nail-film-head h2{font-size:clamp(36px,4.7vw,68px); max-width:760px; line-height:1.02; color:var(--cream);}
+  .nail-film-head p{max-width:460px; color:#c9bbb1; line-height:1.75; font-size:14px;}
+  .film-grid{display:grid; grid-template-columns:1.45fr .72fr .72fr; grid-template-rows:560px; gap:16px;}
+  .film-card{position:relative; overflow:hidden; border-radius:15px; border:1px solid rgba(248,241,233,.15); background:#17110f; box-shadow:0 28px 70px rgba(0,0,0,.22);}
+  .film-card video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.8,.2,1); filter:saturate(.9) contrast(1.04);}
+  .film-card:hover video{transform:scale(1.035);}
+  .film-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(20,14,12,.74) 100%);pointer-events:none;}
+  .film-caption{position:absolute; left:18px; right:18px; bottom:18px; z-index:2; color:#fff;}
+  .film-caption span{display:block;font-size:9.5px;letter-spacing:2.1px;text-transform:uppercase;color:#d8c6ba;margin-bottom:6px;}
+  .film-caption b{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;}
+  .film-badge{position:absolute;right:14px;top:14px;z-index:2;border:1px solid rgba(255,255,255,.22);background:rgba(25,17,15,.45);backdrop-filter:blur(10px);padding:7px 10px;border-radius:100px;color:#fff;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;}
+
+  /* ---------- GALLERY VIDEOS ---------- */
+  .gcard-art video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease;filter:saturate(.93) contrast(1.02);}
+  .gcard:hover .gcard-art video{transform:scale(1.05);}
+  .gcard-art::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -80px 80px -70px rgba(43,33,28,.42);pointer-events:none;}
+  .gallery-note{background:#fff;}
+  .video-feature{aspect-ratio:2.4/1; border-radius:16px;}
+
+  @media(max-width:900px){
+    .wrap{padding:0 22px;}
+    nav{padding-left:22px;padding-right:22px;}
+    .film-grid{grid-template-columns:1fr 1fr;grid-template-rows:440px 320px;}
+    .film-card:first-child{grid-column:1/-1;}
+    .cinema-bottle{right:4%;width:34vw;}
+  }
+  @media(max-width:600px){
+    .film-grid{grid-template-columns:1fr;grid-template-rows:420px 300px 300px;}
+    .film-card:first-child{grid-column:auto;}
+    .nail-film-head{align-items:flex-start;flex-direction:column;}
+    .cinema-bottle{width:42vw;right:5%;top:38%;opacity:.8;}
+  }
+
+
+  /* ---------- CUSTOM LILIANE EMOJI SYSTEM (SVG, not OS/Unicode emoji) ---------- */
+  .xemoji-sprite{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;}
+  .xemoji{
+    width:25px;height:25px;display:inline-block;vertical-align:middle;flex:none;padding:5px;
+    border-radius:9px;color:#fff;overflow:visible;
+    background:linear-gradient(145deg,#d99586 0%,#b1594f 58%,#8e423b 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 5px 12px rgba(126,60,53,.22);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  a:hover .xemoji,button:hover .xemoji{transform:translateY(-1px) rotate(-4deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 7px 16px rgba(126,60,53,.30);}
+  .xemoji-dark{background:linear-gradient(145deg,#59453d,#2b211c);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 5px 12px rgba(43,33,28,.22);}
+  .xemoji-gold{background:linear-gradient(145deg,#c9a36c,#9b7745);}
+  .xemoji-soft{background:linear-gradient(145deg,#e9c9bd,#c8786a);}
+  .xemoji-sm{width:22px;height:22px;padding:4px;border-radius:8px;}
+  .xemoji-xs{width:18px;height:18px;padding:3px;border-radius:6px;}
+  .xemoji-bare{background:none!important;box-shadow:none!important;padding:0;border-radius:0;color:var(--gold);}
+  .custom-stars{display:inline-flex;gap:2px;align-items:center;line-height:1;}
+  .custom-stars .xemoji{width:14px;height:14px;color:var(--gold);background:none;box-shadow:none;padding:0;border-radius:0;}
+  .nav-cta,.btn-primary,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:9px;}
+  .contact-block a{gap:10px;}
+  .contact-block a .xemoji{width:28px;height:28px;}
+  .chat-fab .xemoji{width:28px;height:28px;padding:5px;background:linear-gradient(145deg,#5a4640,#2b211c);box-shadow:none;}
+  .fab .xemoji{width:25px;height:25px;padding:5px;background:rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.25);}
+  .service-topline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+  .service-topline .snum{margin-bottom:0;}
+  .service .pick{gap:8px;}
+  .price-row-main{display:flex;align-items:center;gap:12px;}
+  .gcard-label .glabel-left{display:flex;align-items:center;gap:8px;}
+
+  /* ---------- TRUE CONTINUOUS MARQUEE ---------- */
+  .marquee{padding:0;position:relative;overflow:hidden;border-top:1px solid rgba(248,241,233,.08);border-bottom:1px solid rgba(248,241,233,.08);}
+  .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none;}
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--ink),transparent);}
+  .marquee::after{right:0;background:linear-gradient(-90deg,var(--ink),transparent);}
+  .marquee-track{display:flex;align-items:center;gap:0;width:max-content;white-space:nowrap;animation:liliMarquee 19s linear infinite!important;will-change:transform;font-style:normal;}
+  .marquee-group{display:flex;align-items:center;flex:none;}
+  .marquee-item{height:54px;display:inline-flex;align-items:center;gap:10px;padding:0 24px;font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--cream);}
+  .marquee-item .xemoji{width:21px;height:21px;padding:4px;border-radius:7px;}
+  .marquee-sep{width:4px;height:4px;border-radius:50%;background:var(--rose-2);box-shadow:0 0 0 4px rgba(201,122,104,.08);margin-left:10px;}
+  @keyframes liliMarquee{from{transform:translate3d(0,0,0);}to{transform:translate3d(-50%,0,0);}}
+  .marquee-track:hover{animation-play-state:running!important;}
+  @media(prefers-reduced-motion: reduce){.marquee-track{animation:liliMarquee 24s linear infinite!important;}}
+
+  /* ---------- ABOUT LILI PHOTO ---------- */
+  .about-visual{background:#1d1513;min-height:430px;isolation:isolate;align-items:stretch;justify-content:stretch;}
+  .about-visual img{width:100%;height:100%;min-height:430px;object-fit:cover;display:block;filter:saturate(.82) contrast(1.04) brightness(.88);transition:transform .8s cubic-bezier(.2,.8,.2,1);}
+  .about-visual:hover img{transform:scale(1.035);}
+  .about-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,23,20,.02) 34%,rgba(32,23,20,.78) 100%);z-index:1;pointer-events:none;}
+  .about-photo-badge{position:absolute;top:16px;left:16px;z-index:3;display:inline-flex;align-items:center;gap:9px;background:rgba(248,241,233,.88);backdrop-filter:blur(12px);padding:8px 12px 8px 8px;border-radius:100px;box-shadow:0 12px 28px rgba(43,33,28,.15);font-size:11px;font-weight:600;color:var(--ink);}
+  .about-photo-badge .xemoji{width:26px;height:26px;}
+  .about-photo-copy{position:absolute;left:22px;right:22px;bottom:20px;z-index:3;color:#fff;}
+  .about-photo-copy .quote{padding:0;text-align:left;color:#fff;font-size:clamp(18px,2vw,24px);line-height:1.42;text-shadow:0 2px 20px rgba(0,0,0,.25);}
+  .about-photo-copy .quote span{color:#e7d7cd;margin-top:9px;}
+  .about-photo-note{font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.63);margin-top:12px;}
+
+
+  .overlay-close .xemoji,.chat-head button .xemoji,.chat-input-row button .xemoji{width:20px;height:20px;padding:3px;background:none;box-shadow:none;color:currentColor;}
+  .chat-head button,.chat-input-row button{display:inline-flex;align-items:center;justify-content:center;}
+  .user-chip button .xemoji{width:19px;height:19px;padding:3px;background:none;box-shadow:none;color:var(--dim);}
+  .success-ring .xemoji{width:36px;height:36px;padding:6px;background:none;box-shadow:none;color:#fff;}
+
+  @media(max-width:700px){
+    .marquee-item{height:49px;padding:0 18px;font-size:14px;}
+    .about-visual,.about-visual img{min-height:360px;}
+  }
+
+</style>
+</head>
+<body class="loader-active">
+
+<svg class="xemoji-sprite" aria-hidden="true" focusable="false">
+  <symbol id="xe-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.4v5.1l3.6 2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.1 4.7 4.4 6.4M17.9 4.7l1.7 1.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="xe-nail" viewBox="0 0 24 24"><path d="M8.2 20.2c-1.7-1.4-2.5-3.8-2.1-6.7l.8-5.7C7.2 5.4 9.2 3.6 12 3.6s4.8 1.8 5.1 4.2l.8 5.7c.4 2.9-.4 5.3-2.1 6.7-1 .8-2.2 1.2-3.8 1.2s-2.8-.4-3.8-1.2Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.3 9.1c1.1-1 2.3-1.5 3.7-1.5s2.7.5 3.7 1.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9.5 5.3c.8-.5 1.6-.7 2.5-.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="xe-polish" viewBox="0 0 24 24"><path d="M9 3.5h6v4H9z" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="6.5" y="7.5" width="11" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 13.8c1.6-1.6 3.4-1.6 5 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="xe-sparkle" viewBox="0 0 24 24"><path d="M12 2.8c.7 4.5 2.5 6.3 7 7-.4.1-.8.1-1.2.2-3.7.7-5.2 2.5-5.8 6.8-.6-4.3-2.1-6.1-5.8-6.8-.4-.1-.8-.1-1.2-.2 4.5-.7 6.3-2.5 7-7Z" fill="currentColor"/><path d="M18.5 15.4c.3 1.8 1 2.5 2.8 2.8-1.8.3-2.5 1-2.8 2.8-.3-1.8-1-2.5-2.8-2.8 1.8-.3 2.5-1 2.8-2.8Z" fill="currentColor" opacity=".8"/></symbol>
+  <symbol id="xe-star" viewBox="0 0 24 24"><path d="m12 2.9 2.5 5.3 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8L12 2.9Z" fill="currentColor"/></symbol>
+  <symbol id="xe-pin" viewBox="0 0 24 24"><path d="M12 21s6.2-5.6 6.2-11.3A6.2 6.2 0 1 0 5.8 9.7C5.8 15.4 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="9.6" r="2.2" fill="currentColor"/></symbol>
+  <symbol id="xe-phone" viewBox="0 0 24 24"><path d="M7.2 4.2 9.5 8c.4.7.3 1.6-.3 2.1l-1.4 1.2c1.2 2.2 2.8 3.8 5 5l1.2-1.4c.5-.6 1.4-.7 2.1-.3l3.7 2.3c.7.4 1 1.3.7 2-1 2.2-3 3-5.4 2.3C8.8 19.5 4.5 15.2 2.8 8.9 2.1 6.5 3 4.5 5.2 3.5c.7-.3 1.6 0 2 .7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="xe-chat" viewBox="0 0 24 24"><path d="M4.2 5.2h15.6v10.9H10l-4.2 3v-3H4.2V5.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9.1h8M8 12.2h5.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="xe-calendar" viewBox="0 0 24 24"><rect x="4" y="5.8" width="16" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 9.3h16M8 3.5v4M16 3.5v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8 13h2M13.5 13h2M8 16.5h2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="xe-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="xe-gallery" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.4" fill="currentColor"/><path d="m6.5 17 4.2-4.2 2.4 2.4 2.1-2 2.3 3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="xe-check" viewBox="0 0 24 24"><path d="m5.5 12.4 4.1 4.1 8.9-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="xe-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13.5 6.5 19 12l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="xe-thread" viewBox="0 0 24 24"><path d="M4 7.5c4.8 0 7.2 2.8 8 8.8M20 7.5c-4.8 0-7.2 2.8-8 8.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="4" cy="7.5" r="1.3" fill="currentColor"/><circle cx="20" cy="7.5" r="1.3" fill="currentColor"/></symbol>
+  <symbol id="xe-drop" viewBox="0 0 24 24"><path d="M12 3.4S6.8 9.3 6.8 14a5.2 5.2 0 1 0 10.4 0C17.2 9.3 12 3.4 12 3.4Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 15.8c.5 1 1.3 1.5 2.4 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="xe-close" viewBox="0 0 24 24"><path d="M6.5 6.5 17.5 17.5M17.5 6.5 6.5 17.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="xe-logout" viewBox="0 0 24 24"><path d="M10 5H6.5A2.5 2.5 0 0 0 4 7.5v9A2.5 2.5 0 0 0 6.5 19H10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M13 8.2 16.8 12 13 15.8M8.5 12h8.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="xe-send" viewBox="0 0 24 24"><path d="m4 5 16 7-16 7 2.3-5.2L14 12 6.3 10.2 4 5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+</svg>
+
+
+<div class="site-loader" id="siteLoader" aria-label="A carregar o site">
+  <div class="loader-glow"></div>
+  <div class="loader-inner">
+    <div class="loader-kicker">LILIANE FORTUNATO · BENFICA</div>
+    <div class="loader-nail" aria-hidden="true"></div>
+    <div class="loader-title">Cuidado ao detalhe.</div>
+    <div class="loader-sub">a preparar a experiência</div>
+    <div class="loader-progress"><i id="loaderBar"></i></div>
+    <div class="loader-pct" id="loaderPct">00</div>
+  </div>
+</div>
+<script>
+(function(){
+  var loader=document.getElementById('siteLoader'), bar=document.getElementById('loaderBar'), pct=document.getElementById('loaderPct');
+  var start=performance.now(), duration=1850, done=false;
+  function closeLoader(){ if(done) return; done=true; if(bar) bar.style.width='100%'; if(pct) pct.textContent='100'; setTimeout(function(){ loader && loader.classList.add('hide'); document.body.classList.remove('loader-active'); setTimeout(function(){ if(loader) loader.remove(); },800); },180); }
+  function tick(now){ var p=Math.min((now-start)/duration,1); var eased=1-Math.pow(1-p,3); var n=Math.min(99,Math.floor(eased*100)); if(bar) bar.style.width=n+'%'; if(pct) pct.textContent=String(n).padStart(2,'0'); if(p<1) requestAnimationFrame(tick); else closeLoader(); }
+  requestAnimationFrame(tick);
+  setTimeout(closeLoader,3200);
+})();
+</script>
+
+<header id="siteheader">
+  <nav>
+    <a href="#" class="logo"><b>Liliane Fortunato</b><span data-i18n="tag_line">GABINETE DE ESTÉTICA</span></a>
+    <button class="burger" onclick="toggleMobileNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="navlinks" id="navLinks">
+      <li><a href="#sobre" data-i18n="nav_about">Sobre</a></li>
+      <li><a href="#servicos" data-i18n="nav_services">Serviços</a></li>
+      <li><a href="#precos" data-i18n="nav_pricing">Preços</a></li>
+      <li><a href="#galeria" data-i18n="nav_gallery">Galeria</a></li>
+      <li><a href="#opinioes" data-i18n="nav_reviews">Opiniões</a></li>
+      <li><button class="linklike" onclick="openHistory()" data-i18n="nav_history">As minhas marcações</button></li>
+      <li id="navAdminItem" style="display:none;"><button class="linklike" onclick="openAdminDashboard()" data-i18n="nav_admin">Área da Lili</button></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button id="langPt" class="active" onclick="setLang('pt')">PT</button>
+        <button id="langEn" onclick="setLang('en')">EN</button>
+      </div>
+      <div id="navAuthArea"></div>
+      <button class="nav-cta" onclick="openBooking()"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-clock"></use></svg><span data-i18n="btn_book">Marcar</span></button>
+    </div>
+  </nav>
+</header>
+
+<section class="cinema-wrap" id="cinemaWrap">
+  <div class="cinema-sticky">
+    <div class="cinema-sky"></div>
+    <video class="cinema-video" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de referência de unhas — apenas mãos">
+      <source src="https://videos.pexels.com/video-files/7665249/7665249-uhd_2160_4096_24fps.mp4" type="video/mp4">
+    </video>
+    <div class="cinema-overlay"></div>
+    <div class="cinema-cloud c1" id="cloud1"></div>
+    <div class="cinema-cloud c2" id="cloud2"></div>
+    <div class="cinema-cloud c3" id="cloud3"></div>
+    <div class="cinema-topbar">
+      <span>LILIANE FORTUNATO</span>
+      <span>BENFICA · EST. 2022</span>
+    </div>
+    <div class="cinema-bottle" id="cinemaBottle">
+      <video autoplay muted loop playsinline preload="metadata" aria-label="Detalhe de aplicação de verniz — apenas mãos">
+        <source src="https://videos.pexels.com/video-files/3997850/3997850-uhd_2160_4096_25fps.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="cinema-text" id="cinemaText">
+      <span class="eyebrow2" data-i18n="cinema_eyebrow">Cuidado ao detalhe</span>
+      <h2 data-i18n="cinema_title">Cor que<br>sobe devagar.</h2>
+    </div>
+    <div class="cinema-scrollcue" id="cinemaScrollCue"><span data-i18n="cinema_scroll">Continua a descer</span><div class="ln"></div></div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="glow-follow" id="heroGlow"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <div class="rating-badge"><span class="custom-stars"><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg></span><b>5.0</b><span data-i18n="hero_reviews_badge">· 35 avaliações Google</span></div>
+      <span class="eyebrow" data-i18n="hero_eyebrow">Benfica · Lisboa</span>
+      <h1 data-i18n="hero_title">Cuidado a preceito, <span class="script">unhas</span> que se notam.</h1>
+      <p class="lead" data-i18n="hero_lead">Gabinete de estética em Benfica dedicado a unhas de gel, manicure, pedicure e nail art — atendimento individual, cuidadoso e sem pressa, marcação a marcação.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openBooking()"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-clock"></use></svg><span data-i18n="hero_cta1">Marcar online</span></button>
+        <a href="#servicos" class="btn-ghost"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-nail"></use></svg><span data-i18n="hero_cta2">Ver serviços</span></a>
+      </div>
+      <div class="hero-stats">
+        <div><b id="statRating">0</b><span data-i18n="stat_rating">Classificação</span></div>
+        <div><b id="statReviews">0</b><span data-i18n="stat_reviews">Avaliações</span></div>
+        <div><b id="statBookings">0</b><span data-i18n="stat_bookings">Marcações feitas aqui</span></div>
+      </div>
+    </div>
+    <div class="hero-art reveal in" aria-hidden="true">
+      <div class="dashring"></div><div class="dashring2"></div>
+      <div class="hero-photo-wrap">
+        <video autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de referência de manicure — enquadramento apenas de mãos">
+          <source src="https://videos.pexels.com/video-files/4783401/4783401-uhd_3840_2160_30fps.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-float-card"><span class="custom-stars"><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg><svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg></span><b>5.0 · Google</b></div>
+      <div class="hero-float-card2"><svg class="xemoji xemoji-sm xemoji-dark" aria-hidden="true"><use href="#xe-calendar"></use></svg><div><span data-i18n="hero_next_slot_label">Próxima vaga</span><b id="heroNextSlot">…</b></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<section class="nail-film" aria-label="Vídeos de referência de unhas">
+  <div class="wrap">
+    <div class="nail-film-head reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--rose-2)" data-i18n="film_eyebrow">O gesto</span>
+        <h2 data-i18n="film_title">Unhas em movimento, sem distrações.</h2>
+      </div>
+      <p data-i18n="film_lead">Vídeos de referência focados apenas nas mãos, na técnica e no acabamento. Quando houver conteúdo real da Liliane, basta substituir os clips.</p>
+    </div>
+    <div class="film-grid">
+      <article class="film-card reveal">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="https://videos.pexels.com/video-files/16117302/16117302-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+        <div class="film-badge">Close-up</div>
+        <div class="film-caption"><span>01 · PREPARAÇÃO</span><b>Precisão antes da cor.</b></div>
+      </article>
+      <article class="film-card reveal">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="https://videos.pexels.com/video-files/4783778/4783778-uhd_3840_2160_30fps.mp4" type="video/mp4">
+        </video>
+        <div class="film-badge">Gel</div>
+        <div class="film-caption"><span>02 · FINALIZAÇÃO</span><b>Brilho e cura em LED.</b></div>
+      </article>
+      <article class="film-card reveal">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="https://videos.pexels.com/video-files/6767643/6767643-uhd_2160_3840_24fps.mp4" type="video/mp4">
+        </video>
+        <div class="film-badge">Nail art</div>
+        <div class="film-caption"><span>03 · RESULTADO</span><b>Cor que se vê ao detalhe.</b></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="wrap about">
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="about_eyebrow">A Lili</span>
+      <div class="about-text">
+        <p data-i18n="about_p1">A Liliane Fortunato atende em Benfica com um cuidado que os clientes descrevem, uma e outra vez, como atento ao mais pequeno detalhe — sobretudo em unhas pequenas e mais sensíveis.</p>
+        <p data-i18n="about_p2">Trabalha lado a lado com a Cristina, também de confiança dos clientes habituais para cabelo e corpo. Cada sessão é individual: sem pressa, sem baldes nem máquinas na pedicure — só cuidado personalizado.</p>
+      </div>
+      <div class="about-stats">
+        <div><b>5.0</b><span data-i18n="about_stat1">Classificação Google</span></div>
+        <div><b>35</b><span data-i18n="about_stat2">Avaliações</span></div>
+        <div><b>2022+</b><span data-i18n="about_stat3">Clientes fiéis desde</span></div>
+      </div>
+    </div>
+    <div class="about-visual reveal">
+      <img src="https://images.pexels.com/videos/7424016/pexels-photo-7424016.jpeg?auto=compress&cs=tinysrgb&w=1400&h=1100&fit=crop" alt="Imagem de referência de manicure — mãos e unhas, sem rosto">
+      <div class="about-photo-badge"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-nail"></use></svg><span>Detalhe &amp; cuidado</span></div>
+      <div class="about-photo-copy">
+        <div class="quote" data-i18n="about_quote">"Único sítio onde confio unhas, cabelo e corpo."<span data-i18n="about_quote_who">Cliente Google</span></div>
+        <div class="about-photo-note">Imagem de referência · substituir por fotografia real da Liliane quando disponível</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicos" style="background:var(--cream-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="services_eyebrow">O que fazemos</span>
+      <h2 data-i18n="services_title">Serviços</h2>
+      <p data-i18n="services_lead">De unhas de gel a estética facial — tudo pensado para uma experiência cuidada, sem pressa. Escolhe um serviço para marcar diretamente.</p>
+    </div>
+    <div class="services" id="servicesGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="precos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="pricing_eyebrow">Preços</span>
+      <h2 data-i18n="pricing_title">Quanto custa</h2>
+      <p data-i18n="pricing_lead">Uma referência de preços por serviço, para planeares a tua visita.</p>
+    </div>
+    <div class="price-table reveal" id="priceTable"></div>
+    <p class="price-note" data-i18n="pricing_note">Preços de referência — podem variar consoante o estado das unhas e são sempre confirmados na marcação.</p>
+  </div>
+</section>
+
+<section class="section" id="galeria">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="gallery_eyebrow">Estilos</span>
+      <h2 data-i18n="gallery_title">Galeria</h2>
+      <p data-i18n="gallery_lead">Uma seleção visual de técnicas, cor e acabamentos em vídeo — pronta a substituir pelos trabalhos reais da Lili assim que os tivermos.</p>
+      <span class="gallery-note" data-i18n="gallery_note">Vídeos de referência (stock) — não são trabalhos reais da Lili</span>
+    </div>
+    <div class="video-feature reveal">
+      <video autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de referência de manicure — apenas mãos">
+        <source src="https://videos.pexels.com/video-files/16117150/16117150-hd_1920_1080_30fps.mp4" type="video/mp4">
+      </video>
+      <div class="vf-overlay"><div class="vf-text"><b data-i18n="video_feature_title">O processo, em movimento</b><span data-i18n="video_feature_note">Vídeo de referência (stock) — focado nas mãos e na técnica, não é filmagem real do gabinete</span></div></div>
+    </div>
+    <div class="gallery gallery-3d" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="testi-wrap section" id="opinioes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="reviews_eyebrow">Quem já veio</span>
+      <h2 data-i18n="reviews_title">Opiniões reais</h2>
+      <p data-i18n="reviews_lead">Uma amostra do que os clientes deixaram no Google — 5.0 em 35 avaliações.</p>
+    </div>
+    <div class="tgrid" id="testiGrid"></div>
+  </div>
+</div>
+
+<section class="section" id="local">
+  <div class="wrap info-grid">
+    <div class="reveal">
+      <div class="hours-card">
+        <h3 data-i18n="hours_title">Horário</h3>
+        <div class="hours-row" data-day="1"><span data-i18n="day_mon">Segunda</span><span>09:00 – 19:00</span></div>
+        <div class="hours-row" data-day="2"><span data-i18n="day_tue">Terça</span><span>10:00 – 19:00</span></div>
+        <div class="hours-row" data-day="3"><span data-i18n="day_wed">Quarta</span><span>10:00 – 19:00</span></div>
+        <div class="hours-row" data-day="4"><span data-i18n="day_thu">Quinta</span><span>10:00 – 19:00</span></div>
+        <div class="hours-row" data-day="5"><span data-i18n="day_fri">Sexta</span><span>10:00 – 19:00</span></div>
+        <div class="hours-row closed" data-day="6"><span data-i18n="day_sat">Sábado</span><span data-i18n="closed">Fechado</span></div>
+        <div class="hours-row closed" data-day="0"><span data-i18n="day_sun">Domingo</span><span data-i18n="closed">Fechado</span></div>
+        <div class="contact-block">
+          <a href="tel:+351927933365"><svg class="xemoji" aria-hidden="true"><use href="#xe-phone"></use></svg><span>927 933 365</span></a>
+          <a href="#local"><svg class="xemoji" aria-hidden="true"><use href="#xe-pin"></use></svg><span data-i18n="addr_line">R. Dr. José Baptista de Sousa, 19C — Benfica</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="map-card">
+        <iframe
+          src="https://www.google.com/maps?q=Rua+Dr.+Jos%C3%A9+Baptista+de+Sousa+19C,+1500-500+Lisboa&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização — R. Dr. José Baptista de Sousa, 19C, Benfica">
+        </iframe>
+      </div>
+      <p class="addr-note" data-i18n="addr_note">R. Dr. José Baptista de Sousa, 19C, 1500-500 Lisboa — marcação recomendada online, vagas limitadas por dia.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cta-row reveal">
+      <h2 data-i18n="footer_cta">Marca a tua sessão<br>com a Lili.</h2>
+      <button class="btn-primary" onclick="openBooking()"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-clock"></use></svg><span data-i18n="hero_cta1">Marcar online</span></button>
+    </div>
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo"><b>Liliane Fortunato</b><span data-i18n="tag_line">GABINETE DE ESTÉTICA</span></a>
+        <p data-i18n="footer_about">Gabinete de estética em Benfica — unhas de gel, manicure, pedicure e nail art com atendimento individual.</p>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="footer_nav">Navegação</h4>
+        <a href="#sobre" data-i18n="nav_about">Sobre</a>
+        <a href="#servicos" data-i18n="nav_services">Serviços</a>
+        <a href="#precos" data-i18n="nav_pricing">Preços</a>
+      </div>
+      <div class="foot-col">
+        <h4 data-i18n="footer_account">A tua conta</h4>
+        <button class="linklike" onclick="openHistory()" data-i18n="nav_history">As minhas marcações</button>
+        <button class="linklike" onclick="openAdminDashboard()" data-i18n="nav_admin">Área da Lili</button>
+        <a href="tel:+351927933365">927 933 365</a>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© 2026 Liliane Fortunato — Gabinete de Estética</span>
+      <span data-i18n="footer_credit">Site conceito — design por NorteStudio</span>
+    </div>
+  </div>
+</footer>
+
+<button class="chat-fab" onclick="toggleChat()" aria-label="Chat"><span class="badge"></span><svg class="xemoji" aria-hidden="true"><use href="#xe-chat"></use></svg></button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chn"><span class="dot"></span><div><b data-i18n="chat_title">Apoio Liliane Fortunato</b><span data-i18n="chat_sub">Respostas automáticas</span></div></div>
+    <button onclick="toggleChat()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-close"></use></svg></button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" data-i18n-ph="chat_placeholder" placeholder="Escreve a tua pergunta..." onkeydown="if(event.key==='Enter') sendChat()">
+    <button onclick="sendChat()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-send"></use></svg></button>
+  </div>
+</div>
+<button class="fab" onclick="openBooking()"><svg class="xemoji xemoji-sm" aria-hidden="true"><use href="#xe-clock"></use></svg><span class="txt" data-i18n="fab_book">Marcar agora</span></button>
+
+<div class="overlay-bg" id="overlayBg" onclick="closeAllOverlays()"></div>
+
+<!-- AUTH -->
+<div class="overlay-panel" id="authPanel">
+  <div class="overlay-head"><h3 style="display:flex;align-items:center;gap:9px"><svg class="xemoji xemoji-sm xemoji-dark" aria-hidden="true"><use href="#xe-user"></use></svg><span data-i18n="auth_title">A tua conta</span></h3><button class="overlay-close" onclick="closeAllOverlays()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-close"></use></svg></button></div>
+  <div class="overlay-body">
+    <div class="auth-tabs">
+      <button class="active" id="tabLogin" onclick="switchAuthTab('login')" data-i18n="auth_tab_login">Entrar</button>
+      <button id="tabRegister" onclick="switchAuthTab('register')" data-i18n="auth_tab_register">Criar conta</button>
+    </div>
+    <div class="auth-form active" id="formLogin">
+      <div class="field"><label data-i18n="field_email">Email</label><input type="email" id="loginEmail" placeholder="teu@email.com"></div>
+      <div class="field"><label data-i18n="field_password">Palavra-passe</label><input type="password" id="loginPassword"></div>
+      <p class="field-err" id="loginErr"></p>
+      <button class="btn-primary btn-block" onclick="doLogin()" data-i18n="auth_login_btn">Entrar</button>
+      <p class="auth-note" data-i18n="auth_admin_hint">És a Liliane? Entra com o teu email de proprietária para acederes à tua área reservada.</p>
+    </div>
+    <div class="auth-form" id="formRegister">
+      <div class="field"><label data-i18n="field_name">Nome</label><input type="text" id="regName"></div>
+      <div class="field"><label data-i18n="field_email">Email</label><input type="email" id="regEmail"></div>
+      <div class="field"><label data-i18n="field_phone">Telemóvel</label><input type="tel" id="regPhone"></div>
+      <div class="field"><label data-i18n="field_password">Palavra-passe</label><input type="password" id="regPassword"></div>
+      <p class="field-err" id="regErr"></p>
+      <button class="btn-primary btn-block" onclick="doRegister()" data-i18n="auth_register_btn">Criar conta</button>
+      <p class="auth-note" data-i18n="auth_security_note">Conta de demonstração: a palavra-passe é guardada de forma simples, não segura para produção real.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<div class="overlay-panel" id="bookingPanel">
+  <div class="overlay-head"><h3 style="display:flex;align-items:center;gap:9px"><svg class="xemoji xemoji-sm xemoji-dark" aria-hidden="true"><use href="#xe-calendar"></use></svg><span data-i18n="booking_title">Marcar sessão</span></h3><button class="overlay-close" onclick="closeAllOverlays()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-close"></use></svg></button></div>
+  <div class="overlay-body">
+    <div class="steps-track"><div class="step-dot active" id="dot1"><i></i></div><div class="step-dot" id="dot2"><i></i></div><div class="step-dot" id="dot3"><i></i></div><div class="step-dot" id="dot4"><i></i></div></div>
+
+    <div class="bk-step active" id="step1">
+      <h3 style="font-size:15px; margin-bottom:12px;" data-i18n="step1_title">Escolhe o serviço</h3>
+      <div class="service-pick-list" id="servicePickList"></div>
+      <div class="step-actions"><button class="btn-primary btn-block" onclick="goStep(2)" id="step1next" disabled data-i18n="btn_continue">Continuar</button></div>
+    </div>
+
+    <div class="bk-step" id="step2">
+      <h3 style="font-size:15px; margin-bottom:12px;" data-i18n="step2_title_day">Escolhe o dia</h3>
+      <div class="day-scroller" id="dayScroller"></div>
+      <h3 style="font-size:15px; margin-bottom:12px;" data-i18n="step2_title_time">Escolhe a hora</h3>
+      <div class="time-grid" id="timeGrid"><p style="color:var(--dim); font-size:13px;" data-i18n="pick_day_first">Escolhe primeiro um dia.</p></div>
+      <div class="step-actions"><button class="btn-ghost" onclick="goStep(1)" data-i18n="btn_back">Voltar</button><button class="btn-primary" onclick="goStep(3)" id="step2next" disabled data-i18n="btn_continue">Continuar</button></div>
+    </div>
+
+    <div class="bk-step" id="step3">
+      <h3 style="font-size:15px; margin-bottom:12px;" data-i18n="step3_title">Confirma os teus dados</h3>
+      <div class="field"><label data-i18n="field_name">Nome</label><input type="text" id="inputName"></div>
+      <div class="field"><label data-i18n="field_phone">Telemóvel</label><input type="tel" id="inputPhone"></div>
+      <div class="summary-card" id="summaryCard"></div>
+      <div class="step-actions"><button class="btn-ghost" onclick="goStep(2)" data-i18n="btn_back">Voltar</button><button class="btn-primary" onclick="confirmBooking()" id="step3next" data-i18n="btn_confirm">Confirmar marcação</button></div>
+    </div>
+
+    <div class="bk-step" id="step4">
+      <div class="success-screen">
+        <div class="confetti-wrap" id="confettiWrap"></div>
+        <div class="success-ring"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-check"></use></svg></div>
+        <h3 style="font-size:19px; margin-bottom:8px;" data-i18n="success_title">Marcação confirmada!</h3>
+        <p style="color:var(--dim); font-size:13.5px; margin-bottom:20px;" data-i18n="success_lead">A tua marcação está pendente de confirmação da Liliane. Vais poder acompanhar o estado em "As minhas marcações".</p>
+        <div class="summary-card" id="finalSummaryCard" style="text-align:left;"></div>
+        <button class="btn-primary btn-block" style="margin-top:10px;" onclick="closeAllOverlays()" data-i18n="btn_close">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT HISTORY -->
+<div class="overlay-panel" id="historyPanel">
+  <div class="overlay-head"><h3 data-i18n="history_title">As minhas marcações</h3><button class="overlay-close" onclick="closeAllOverlays()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-close"></use></svg></button></div>
+  <div class="overlay-body" id="historyBody"></div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="overlay-panel wide" id="adminPanel">
+  <div class="overlay-head"><h3 data-i18n="admin_title">Marcações — Liliane</h3><button class="overlay-close" onclick="closeAllOverlays()"><svg class="xemoji xemoji-bare" aria-hidden="true"><use href="#xe-close"></use></svg></button></div>
+  <div class="overlay-body">
+    <div class="stats-strip">
+      <div><b id="admStatTotal">0</b><span data-i18n="adm_total">Total</span></div>
+      <div><b id="admStatUpcoming">0</b><span data-i18n="adm_upcoming">Por vir</span></div>
+      <div><b id="admStatToday">0</b><span data-i18n="adm_today">Hoje</span></div>
+    </div>
+    <div class="booking-list" id="adminList"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   i18n
+========================================================= */
+const I18N = {
+  pt:{
+    cinema_eyebrow:'Cuidado ao detalhe', cinema_title:'Cor que<br>sobe devagar.', cinema_scroll:'Continua a descer', film_eyebrow:'O gesto', film_title:'Unhas em movimento, sem distrações.', film_lead:'Vídeos de referência focados apenas nas mãos, na técnica e no acabamento. Quando houver conteúdo real da Liliane, basta substituir os clips.',
+    tag_line:'GABINETE DE ESTÉTICA', nav_about:'Sobre', nav_services:'Serviços', nav_pricing:'Preços', nav_gallery:'Galeria',    nav_reviews:'Opiniões', nav_history:'As minhas marcações', nav_admin:'Área da Lili', btn_book:'Marcar',
+    hero_reviews_badge:'· 35 avaliações Google', hero_eyebrow:'Benfica · Lisboa',
+    hero_title:'Cuidado a preceito, <span class="script">unhas</span> que se notam.',
+    hero_lead:'Gabinete de estética em Benfica dedicado a unhas de gel, manicure, pedicure e nail art — atendimento individual, cuidadoso e sem pressa, marcação a marcação.',
+    hero_cta1:'Marcar online', hero_cta2:'Ver serviços', hero_next_slot_label:'Próxima vaga',
+    stat_rating:'Classificação', stat_reviews:'Avaliações', stat_bookings:'Marcações feitas aqui',
+    about_eyebrow:'A Lili',
+    about_p1:'A Liliane Fortunato atende em Benfica com um cuidado que os clientes descrevem, uma e outra vez, como atento ao mais pequeno detalhe — sobretudo em unhas pequenas e mais sensíveis.',
+    about_p2:'Trabalha lado a lado com a Cristina, também de confiança dos clientes habituais para cabelo e corpo. Cada sessão é individual: sem pressa, sem baldes nem máquinas na pedicure — só cuidado personalizado.',
+    about_stat1:'Classificação Google', about_stat2:'Avaliações', about_stat3:'Clientes fiéis desde',
+    about_quote:'"Único sítio onde confio unhas, cabelo e corpo."', about_quote_who:'Cliente Google',
+    services_eyebrow:'O que fazemos', services_title:'Serviços',
+    services_lead:'De unhas de gel a estética facial — tudo pensado para uma experiência cuidada, sem pressa. Escolhe um serviço para marcar diretamente.',
+    pricing_eyebrow:'Preços', pricing_title:'Quanto custa', pricing_lead:'Uma referência de preços por serviço, para planeares a tua visita.',
+    pricing_note:'Preços de referência — podem variar consoante o estado das unhas e são sempre confirmados na marcação.',
+    gallery_eyebrow:'Estilos', gallery_title:'Galeria',
+    gallery_lead:'Uma seleção visual de técnicas, cor e acabamentos em vídeo — pronta a substituir pelos trabalhos reais da Lili assim que os tivermos.',
+    gallery_note:'Vídeos de referência (stock) — não são trabalhos reais da Lili',
+    video_feature_title:'O processo, em movimento', video_feature_note:'Vídeo de referência (stock) — ilustra o tipo de cuidado, não é filmagem real do gabinete',
+    reviews_eyebrow:'Quem já veio', reviews_title:'Opiniões reais', reviews_lead:'Uma amostra do que os clientes deixaram no Google — 5.0 em 35 avaliações.',
+    hours_title:'Horário', day_mon:'Segunda', day_tue:'Terça', day_wed:'Quarta', day_thu:'Quinta', day_fri:'Sexta', day_sat:'Sábado', day_sun:'Domingo', closed:'Fechado',
+    addr_line:'R. Dr. José Baptista de Sousa, 19C — Benfica',
+    addr_note:'R. Dr. José Baptista de Sousa, 19C, 1500-500 Lisboa — marcação recomendada online, vagas limitadas por dia.',
+    footer_cta:'Marca a tua sessão<br>com a Lili.', footer_about:'Gabinete de estética em Benfica — unhas de gel, manicure, pedicure e nail art com atendimento individual.',
+    footer_nav:'Navegação', footer_account:'A tua conta', footer_credit:'Site conceito — design por NorteStudio',
+    chat_title:'Apoio Liliane Fortunato', chat_sub:'Respostas automáticas', chat_placeholder:'Escreve a tua pergunta...',
+    fab_book:'Marcar agora',
+    auth_title:'A tua conta', auth_tab_login:'Entrar', auth_tab_register:'Criar conta',
+    field_email:'Email', field_password:'Palavra-passe', field_name:'Nome', field_phone:'Telemóvel',
+    auth_login_btn:'Entrar', auth_admin_hint:'És a Liliane? Entra com o teu email de proprietária para acederes à tua área reservada.',
+    auth_register_btn:'Criar conta', auth_security_note:'Conta de demonstração: a palavra-passe é guardada de forma simples, não segura para produção real.',
+    booking_title:'Marcar sessão', step1_title:'Escolhe o serviço', step2_title_day:'Escolhe o dia', step2_title_time:'Escolhe a hora',
+    pick_day_first:'Escolhe primeiro um dia.', btn_continue:'Continuar', btn_back:'Voltar', btn_confirm:'Confirmar marcação', btn_close:'Fechar',
+    step3_title:'Confirma os teus dados', success_title:'Marcação confirmada!',
+    success_lead:'A tua marcação está pendente de confirmação da Liliane. Vais poder acompanhar o estado em "As minhas marcações".',
+    history_title:'As minhas marcações', admin_title:'Marcações — Liliane', adm_total:'Total', adm_upcoming:'Por vir', adm_today:'Hoje',
+    login_required:'Precisas de entrar ou criar conta antes de marcar.',
+    please_login:'Entra na tua conta para ver as tuas marcações.',
+    no_bookings:'Ainda não tens marcações. Marca a tua primeira sessão!',
+    cancel_btn:'Cancelar marcação', cancelled_msg:'Marcação cancelada.',
+    confirm_btn:'Confirmar', delete_btn:'Apagar', not_admin:'Esta área é exclusiva da Liliane Fortunato.',
+    no_admin_bookings:'Ainda não há marcações. Assim que alguém marcar pelo site, aparece aqui.',
+    logout:'Sair', summary_service:'Serviço', summary_date:'Data', summary_time:'Hora', summary_name:'Nome', summary_phone:'Telemóvel',
+  },
+  en:{
+    cinema_eyebrow:'Careful attention to detail', cinema_title:'Colour that<br>rises slowly.', cinema_scroll:'Keep scrolling', film_eyebrow:'The gesture', film_title:'Nails in motion, without distractions.', film_lead:'Reference videos focused only on hands, technique and finish. Once Liliane has real footage, the clips can simply be replaced.',
+    tag_line:'AESTHETICS STUDIO', nav_about:'About', nav_services:'Services', nav_pricing:'Pricing', nav_gallery:'Gallery',
+    nav_reviews:'Reviews', nav_history:'My bookings', nav_admin:"Lili's area", btn_book:'Book',
+    hero_reviews_badge:'· 35 Google reviews', hero_eyebrow:'Benfica · Lisbon',
+    hero_title:'Careful work, <span class="script">nails</span> that stand out.',
+    hero_lead:'Aesthetics studio in Benfica dedicated to gel nails, manicure, pedicure and nail art — individual, unhurried, appointment by appointment.',
+    hero_cta1:'Book online', hero_cta2:'See services', hero_next_slot_label:'Next slot',
+    stat_rating:'Rating', stat_reviews:'Reviews', stat_bookings:'Bookings made here',
+    about_eyebrow:'About Lili',
+    about_p1:'Liliane Fortunato works in Benfica with a level of care clients describe again and again as attentive to the smallest detail — especially with small, sensitive nails.',
+    about_p2:'She works alongside Cristina, also trusted by regular clients for hair and body treatments. Every session is one-on-one: unhurried, no shared buckets or machines for pedicure — just personal care.',
+    about_stat1:'Google rating', about_stat2:'Reviews', about_stat3:'Loyal clients since',
+    about_quote:'"The only place I trust for nails, hair and body."', about_quote_who:'Google customer',
+    services_eyebrow:'What we do', services_title:'Services',
+    services_lead:'From gel nails to facial treatments — all designed for an unhurried, careful experience. Pick a service to book it directly.',
+    pricing_eyebrow:'Pricing', pricing_title:'How much it costs', pricing_lead:'A price reference per service, so you can plan your visit.',
+    pricing_note:'Reference prices — may vary depending on nail condition, always confirmed at booking.',
+    gallery_eyebrow:'Styles', gallery_title:'Gallery',
+    gallery_lead:"A visual selection of techniques, colour and finishes in motion — ready to swap for Lili's real work once we have it.",
+    gallery_note:"Reference (stock) videos — not real work by Lili",
+    video_feature_title:'The process, in motion', video_feature_note:'Reference (stock) video — illustrates the type of care, not real footage from the studio',
+    reviews_eyebrow:'Who has already come', reviews_title:'Real reviews', reviews_lead:'A sample of what clients left on Google — 5.0 across 35 reviews.',
+    hours_title:'Hours', day_mon:'Monday', day_tue:'Tuesday', day_wed:'Wednesday', day_thu:'Thursday', day_fri:'Friday', day_sat:'Saturday', day_sun:'Sunday', closed:'Closed',
+    addr_line:'R. Dr. José Baptista de Sousa, 19C — Benfica',
+    addr_note:'R. Dr. José Baptista de Sousa, 19C, 1500-500 Lisbon — online booking recommended, limited daily slots.',
+    footer_cta:'Book your session<br>with Lili.', footer_about:'Aesthetics studio in Benfica — gel nails, manicure, pedicure and nail art with individual care.',
+    footer_nav:'Navigation', footer_account:'Your account', footer_credit:'Concept site — design by NorteStudio',
+    chat_title:'Liliane Fortunato Support', chat_sub:'Automated answers', chat_placeholder:'Type your question...',
+    fab_book:'Book now',
+    auth_title:'Your account', auth_tab_login:'Log in', auth_tab_register:'Create account',
+    field_email:'Email', field_password:'Password', field_name:'Name', field_phone:'Phone',
+    auth_login_btn:'Log in', auth_admin_hint:"Are you Lili? Log in with your owner email to reach your reserved area.",
+    auth_register_btn:'Create account', auth_security_note:'Demo account: the password is stored in a simple way, not secure for real production.',
+    booking_title:'Book a session', step1_title:'Choose the service', step2_title_day:'Choose the day', step2_title_time:'Choose the time',
+    pick_day_first:'Choose a day first.', btn_continue:'Continue', btn_back:'Back', btn_confirm:'Confirm booking', btn_close:'Close',
+    step3_title:'Confirm your details', success_title:'Booking confirmed!',
+    success_lead:"Your booking is pending Liliane's confirmation. You can track its status under \"My bookings\".",
+    history_title:'My bookings', admin_title:"Bookings — Liliane", adm_total:'Total', adm_upcoming:'Upcoming', adm_today:'Today',
+    login_required:'You need to log in or create an account before booking.',
+    please_login:'Log in to your account to see your bookings.',
+    no_bookings:"You don't have any bookings yet. Book your first session!",
+    cancel_btn:'Cancel booking', cancelled_msg:'Booking cancelled.',
+    confirm_btn:'Confirm', delete_btn:'Delete', not_admin:"This area is exclusive to Liliane Fortunato.",
+    no_admin_bookings:'No bookings yet. Once someone books through the site, it will appear here.',
+    logout:'Log out', summary_service:'Service', summary_date:'Date', summary_time:'Time', summary_name:'Name', summary_phone:'Phone',
+  }
+};
+let currentLang = 'pt';
+function t(key){ return (I18N[currentLang] && I18N[currentLang][key]) || key; }
+
+function setLang(lang){
+  currentLang = lang;
+  document.getElementById('langPt').classList.toggle('active', lang==='pt');
+  document.getElementById('langEn').classList.toggle('active', lang==='en');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(I18N[lang][k]) el.innerHTML = I18N[lang][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-ph');
+    if(I18N[lang][k]) el.placeholder = I18N[lang][k];
+  });
+  renderServices();
+  renderPricing();
+  renderGallery();
+  renderTestimonials();
+  renderMarquee();
+  renderAuthArea();
+  buildQuickQuestions();
+  try{ localStorage.setItem('liliane-lang', lang); }catch(e){}
+}
+
+/* =========================================================
+   DATA
+========================================================= */
+const SERVICES = [
+  {id:'gel', price:'25€', pt:{name:'Unhas de Gel', desc:'Aplicação e manutenção com acabamento duradouro.', dur:'60 min'}, en:{name:'Gel Nails', desc:'Application and maintenance with a long-lasting finish.', dur:'60 min'}},
+  {id:'manipedi', price:'32€', pt:{name:'Manicure & Pedicure', desc:'Tratamento individual e personalizado.', dur:'75 min'}, en:{name:'Manicure & Pedicure', desc:'Individual, personalised treatment.', dur:'75 min'}},
+  {id:'nailart', price:'+8€', pt:{name:'Nail Art', desc:'Design personalizado à tua medida.', dur:'+30 min'}, en:{name:'Nail Art', desc:'Custom design made to fit you.', dur:'+30 min'}},
+  {id:'threading', price:'10€', pt:{name:'Depilação (Threading)', desc:'Sobrancelhas e contorno do rosto.', dur:'20 min'}, en:{name:'Threading', desc:'Eyebrows and facial contour.', dur:'20 min'}},
+  {id:'facial', price:'28€', pt:{name:'Limpeza de Pele', desc:'Tratamento facial de limpeza profunda.', dur:'45 min'}, en:{name:'Facial Cleansing', desc:'Deep-cleansing facial treatment.', dur:'45 min'}},
+  {id:'haircorpo', price:'a combinar', pt:{name:'Cabelo & Corpo', desc:'Serviços complementares com a Cristina.', dur:'variável'}, en:{name:'Hair & Body', desc:'Complementary services with Cristina.', dur:'varies'}},
+];
+const GALLERY = [
+  {video:'https://videos.pexels.com/video-files/3997850/3997850-uhd_2160_4096_25fps.mp4', pt:'Aplicação de Cor', en:'Colour Application', tag:{pt:'Precisão', en:'Precision'}},
+  {video:'https://videos.pexels.com/video-files/4783778/4783778-uhd_3840_2160_30fps.mp4', pt:'Cura em LED', en:'LED Curing', tag:{pt:'Gel', en:'Gel'}},
+  {video:'https://videos.pexels.com/video-files/6767643/6767643-uhd_2160_3840_24fps.mp4', pt:'Pastéis', en:'Pastels', tag:{pt:'Nail Art', en:'Nail Art'}},
+  {video:'https://videos.pexels.com/video-files/16117150/16117150-hd_1920_1080_30fps.mp4', pt:'Preparação', en:'Preparation', tag:{pt:'Cuidado', en:'Care'}},
+  {video:'https://videos.pexels.com/video-files/3997793/3997793-uhd_2160_4096_25fps.mp4', pt:'Técnica', en:'Technique', tag:{pt:'Detalhe', en:'Detail'}},
+  {video:'https://videos.pexels.com/video-files/4783401/4783401-uhd_3840_2160_30fps.mp4', pt:'Manicure', en:'Manicure', tag:{pt:'Profissional', en:'Professional'}},
+];
+const TESTIMONIALS = [
+  {pt:'Desde que a conheci, nunca mais consegui ir a outro sítio — a confiança e a qualidade fazem toda a diferença.', en:'Since I found her, I could never go anywhere else — the trust and quality make all the difference.'},
+  {pt:'Fiquei surpreendida com a pedicure: super segura, tudo feito de forma individual e personalizada.', en:'I was surprised by the pedicure: very safe, done individually and personally.'},
+  {pt:'Máxima higiene, equipamentos de segurança e um trabalho de alta qualidade, sem dúvida.', en:'Top hygiene, safety equipment, and clearly high-quality work.'},
+];
+const MARQUEE_ITEMS = {
+  pt:['Unhas de Gel','Manicure','Pedicure','Nail Art','Depilação','Estética Facial'],
+  en:['Gel Nails','Manicure','Pedicure','Nail Art','Threading','Facial Aesthetics']
+};
+const HOURS = {1:['09:00','19:00'],2:['10:00','19:00'],3:['10:00','19:00'],4:['10:00','19:00'],5:['10:00','19:00']};
+const ADMIN_EMAIL = 'liliane@lilianefortunato.pt';
+const ADMIN_DEFAULT_PASSWORD = 'lili2026';
+
+/* =========================================================
+   STATE + STORAGE (works in Claude preview AND standalone)
+========================================================= */
+let allBookings = [];
+let allUsers = {};
+let currentUser = null;
+let bkService = null, bkDate = null, bkTime = null;
+const KEY_BOOKINGS = 'liliane-marcacoes-todas';
+const KEY_USERS = 'liliane-users-todas';
+
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function simpleHash(pw){ let h=0; for(let i=0;i<pw.length;i++){ h=(h*31+pw.charCodeAt(i))|0; } return 'h'+Math.abs(h).toString(36); }
+
+let memoryFallback = {};
+async function safeStorageGet(key){
+  if(window.storage && typeof window.storage.get === 'function'){
+    try{ const r = await window.storage.get(key, true); return r ? r.value : null; }catch(e){}
+  }
+  try{ return localStorage.getItem(key); }catch(e){ return memoryFallback[key] || null; }
+}
+async function safeStorageSet(key, value){
+  if(window.storage && typeof window.storage.set === 'function'){
+    try{ await window.storage.set(key, value, true); return true; }catch(e){}
+  }
+  try{ localStorage.setItem(key, value); return true; }catch(e){ memoryFallback[key]=value; return true; }
+}
+
+async function loadBookings(){
+  try{ const raw = await safeStorageGet(KEY_BOOKINGS); allBookings = raw ? JSON.parse(raw) : []; }catch(e){ allBookings = []; }
+  renderHeroStats(); updateNextSlot();
+}
+async function saveBookings(){ try{ await safeStorageSet(KEY_BOOKINGS, JSON.stringify(allBookings)); }catch(e){} }
+
+async function loadUsers(){
+  try{ const raw = await safeStorageGet(KEY_USERS); allUsers = raw ? JSON.parse(raw) : {}; }catch(e){ allUsers = {}; }
+  if(!allUsers[ADMIN_EMAIL]){
+    allUsers[ADMIN_EMAIL] = {name:'Liliane Fortunato', email:ADMIN_EMAIL, phone:'927933365', passwordHash:simpleHash(ADMIN_DEFAULT_PASSWORD), isAdmin:true};
+    await saveUsers();
+  }
+}
+async function saveUsers(){ try{ await safeStorageSet(KEY_USERS, JSON.stringify(allUsers)); }catch(e){} }
+
+/* =========================================================
+   RENDER: services / pricing / gallery / testimonials / marquee
+========================================================= */
+/* Custom SVG emoji renderer — these icons are part of the site and do not depend on phone/PC emoji fonts. */
+function xIcon(name, cls=''){
+  return `<svg class="xemoji ${cls}" aria-hidden="true"><use href="#xe-${name}"></use></svg>`;
+}
+function xStars(){
+  return `<span class="custom-stars">${Array.from({length:5},()=>`<svg class="xemoji" aria-hidden="true"><use href="#xe-star"></use></svg>`).join('')}</span>`;
+}
+const SERVICE_ICONS = {gel:'nail', manipedi:'polish', nailart:'sparkle', threading:'thread', facial:'drop', haircorpo:'sparkle'};
+
+function renderServices(){
+  const grid = document.getElementById('servicesGrid');
+  grid.innerHTML = SERVICES.map((s,i)=>{
+    const l = s[currentLang];
+    const ico = SERVICE_ICONS[s.id] || 'sparkle';
+    return `<div class="service"><div class="service-topline"><span class="snum">0${i+1}</span>${xIcon(ico,'xemoji-sm')}</div><h3>${l.name}</h3><p>${l.desc}</p>
+      <button class="pick" onclick="openBooking('${s.id}')"><span>${currentLang==='pt'?'Marcar este serviço':'Book this service'}</span>${xIcon('arrow','xemoji-xs')}</button></div>`;
+  }).join('');
+
+  const list = document.getElementById('servicePickList');
+  list.innerHTML = SERVICES.map(s=>{
+    const l = s[currentLang];
+    const ico = SERVICE_ICONS[s.id] || 'sparkle';
+    return `<div class="service-pick" data-id="${s.id}" onclick="pickService('${s.id}')">
+      <div style="display:flex;align-items:center;gap:11px">${xIcon(ico,'xemoji-sm')}<div><b>${l.name}</b><span>${l.desc} · ${l.dur} · ${s.price}</span></div></div><div class="check">${xIcon('check','xemoji-xs')}</div></div>`;
+  }).join('');
+  if(bkService){ document.querySelectorAll('.service-pick').forEach(el=>el.classList.toggle('selected', el.dataset.id===bkService.id)); }
+}
+function renderPricing(){
+  document.getElementById('priceTable').innerHTML = SERVICES.map(s=>{
+    const l = s[currentLang];
+    const ico = SERVICE_ICONS[s.id] || 'sparkle';
+    return `<div class="price-row"><div class="price-row-main">${xIcon(ico,'xemoji-sm')}<div><div class="pname">${l.name}</div><div class="pdur">${l.dur}</div></div></div><div class="pval">${s.price}</div></div>`;
+  }).join('');
+}
+function renderGallery(){
+  document.getElementById('galleryGrid').innerHTML = GALLERY.map(g=>`
+    <div class="gcard reveal in"><div class="gcard-art"><video autoplay muted loop playsinline preload="metadata" aria-label="${g[currentLang]}"><source src="${g.video}" type="video/mp4"></video></div>
+    <div class="gcard-label"><span class="glabel-left">${xIcon('gallery','xemoji-xs')}<span>${g[currentLang]}</span></span><small>${g.tag[currentLang]}</small></div></div>`).join('');
+  initGalleryTilt();
+  nudgeVideoPlayback();
+}
+function initGalleryTilt(){
+  const cards = document.querySelectorAll('#galleryGrid .gcard');
+  cards.forEach(card=>{
+    card.style.transformStyle = 'preserve-3d';
+    card.style.transition = 'transform .15s ease-out, box-shadow .25s ease';
+    card.addEventListener('mousemove', (e)=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - 0.5;
+      const y = (e.clientY - r.top)/r.height - 0.5;
+      card.style.transform = `perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-6px) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.transform = 'perspective(900px) rotateY(0) rotateX(0) translateY(0) scale(1)'; });
+  });
+}
+function renderTestimonials(){
+  document.getElementById('testiGrid').innerHTML = TESTIMONIALS.map(x=>`
+    <div class="tcard reveal in">${xStars()}<p>${x[currentLang]}</p><div class="who">${currentLang==='pt'?'Cliente Google':'Google customer'}</div></div>`).join('');
+}
+function renderMarquee(){
+  const items = MARQUEE_ITEMS[currentLang];
+  const group = items.map((it,i)=>`<span class="marquee-item">${xIcon(i%3===0?'nail':(i%3===1?'sparkle':'polish'),'xemoji-sm')}<span>${it}</span><i class="marquee-sep"></i></span>`).join('');
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML = `<div class="marquee-group">${group}</div><div class="marquee-group" aria-hidden="true">${group}</div>`;
+  /* Force a fresh animation in previews that cache the previous state. */
+  track.style.animation = 'none';
+  void track.offsetWidth;
+  track.style.animation = 'liliMarquee 19s linear infinite';
+}
+
+/* =========================================================
+   AUTH
+========================================================= */
+function switchAuthTab(tab){
+  document.getElementById('tabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('tabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('formLogin').classList.toggle('active', tab==='login');
+  document.getElementById('formRegister').classList.toggle('active', tab==='register');
+}
+function openAuth(afterAction){
+  closeAllOverlays(true);
+  document.getElementById('overlayBg').classList.add('show');
+  document.getElementById('authPanel').classList.add('show');
+  document.getElementById('loginErr').textContent = '';
+  document.getElementById('regErr').textContent = '';
+  window.__authAfter = afterAction || null;
+}
+async function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pw = document.getElementById('loginPassword').value;
+  const err = document.getElementById('loginErr');
+  const u = allUsers[email];
+  if(!u || u.passwordHash !== simpleHash(pw)){
+    err.textContent = currentLang==='pt' ? 'Email ou palavra-passe incorretos.' : 'Incorrect email or password.';
+    return;
+  }
+  currentUser = u;
+  try{ localStorage.setItem('liliane-current-email', email); }catch(e){}
+  closeAllOverlays();
+  renderAuthArea();
+  if(window.__authAfter) window.__authAfter();
+  window.__authAfter = null;
+}
+async function doRegister(){
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim().toLowerCase();
+  const phone = document.getElementById('regPhone').value.trim();
+  const pw = document.getElementById('regPassword').value;
+  const err = document.getElementById('regErr');
+  if(!name || !email || !phone || !pw){ err.textContent = currentLang==='pt' ? 'Preenche todos os campos.' : 'Fill in all fields.'; return; }
+  if(allUsers[email]){ err.textContent = currentLang==='pt' ? 'Já existe uma conta com este email.' : 'An account with this email already exists.'; return; }
+  allUsers[email] = {name, email, phone, passwordHash:simpleHash(pw), isAdmin:false};
+  await saveUsers();
+  currentUser = allUsers[email];
+  try{ localStorage.setItem('liliane-current-email', email); }catch(e){}
+  closeAllOverlays();
+  renderAuthArea();
+  if(window.__authAfter) window.__authAfter();
+  window.__authAfter = null;
+}
+function logout(){
+  currentUser = null;
+  try{ localStorage.removeItem('liliane-current-email'); }catch(e){}
+  renderAuthArea();
+}
+function renderAuthArea(){
+  const area = document.getElementById('navAuthArea');
+  const adminItem = document.getElementById('navAdminItem');
+  if(currentUser){
+    const initial = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : '?';
+    area.innerHTML = `<div class="user-chip"><div class="av">${initial}</div><span>${currentUser.name}</span><button onclick="logout()" style="background:none;border:none;color:var(--dim);display:inline-flex;align-items:center;" title="${t('logout')}">${xIcon('logout','xemoji-bare')}</button></div>`;
+    adminItem.style.display = currentUser.isAdmin ? '' : 'none';
+  }else{
+    area.innerHTML = `<button class="btn-ghost btn-sm" onclick="openAuth()">${xIcon('user','xemoji-sm')}<span>${currentLang==='pt'?'Entrar':'Log in'}</span></button>`;
+    adminItem.style.display = 'none';
+  }
+}
+
+/* =========================================================
+   BOOKING FLOW
+========================================================= */
+function openBooking(preselectId){
+  if(!currentUser){
+    alert(t('login_required'));
+    openAuth(()=>openBooking(preselectId));
+    return;
+  }
+  closeAllOverlays(true);
+  document.getElementById('overlayBg').classList.add('show');
+  document.getElementById('bookingPanel').classList.add('show');
+  bkService = null; bkDate = null; bkTime = null;
+  goStep(1, true);
+  document.querySelectorAll('.service-pick').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('step1next').disabled = true;
+  buildDayScroller();
+  document.getElementById('timeGrid').innerHTML = `<p style="color:var(--dim); font-size:13px;">${t('pick_day_first')}</p>`;
+  document.getElementById('step2next').disabled = true;
+  document.getElementById('inputName').value = currentUser.name || '';
+  document.getElementById('inputPhone').value = currentUser.phone || '';
+  if(preselectId){ pickService(preselectId); goStep(2); }
+}
+function pickService(id){
+  bkService = SERVICES.find(s=>s.id===id);
+  document.querySelectorAll('.service-pick').forEach(el=>el.classList.toggle('selected', el.dataset.id===id));
+  document.getElementById('step1next').disabled = false;
+}
+function goStep(n, silent){
+  for(let i=1;i<=4;i++){
+    document.getElementById('step'+i).classList.toggle('active', i===n);
+    const dot = document.getElementById('dot'+i);
+    dot.classList.toggle('active', i===n); dot.classList.toggle('done', i<n);
+  }
+  if(n===3) buildSummary('summaryCard');
+}
+function buildDayScroller(){
+  const wrap = document.getElementById('dayScroller');
+  const today = new Date();
+  const names = currentLang==='pt' ? ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let html = '';
+  for(let i=0;i<21;i++){
+    const d = new Date(today); d.setDate(today.getDate()+i);
+    const dow = d.getDay(); const closed = !HOURS[dow]; const iso = d.toISOString().slice(0,10);
+    html += `<button class="day-chip" data-iso="${iso}" ${closed?'disabled':''} onclick="pickDay('${iso}', ${dow})"><span class="dname">${names[dow]}</span><span class="dnum">${d.getDate()}</span></button>`;
+  }
+  wrap.innerHTML = html;
+}
+function pickDay(iso, dow){
+  bkDate = iso; bkTime = null;
+  document.querySelectorAll('.day-chip').forEach(el=>el.classList.toggle('selected', el.dataset.iso===iso));
+  buildTimeGrid(iso, dow);
+  document.getElementById('step2next').disabled = true;
+}
+function buildTimeGrid(iso, dow){
+  const [start,end] = HOURS[dow];
+  const slots = [];
+  let [h,m] = start.split(':').map(Number); const [eh,em] = end.split(':').map(Number);
+  while(h < eh || (h===eh && m<em)){ slots.push(String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')); m+=45; if(m>=60){m-=60; h+=1;} }
+  const taken = allBookings.filter(b=>b.date===iso && b.status!=='cancelada').map(b=>b.time);
+  document.getElementById('timeGrid').innerHTML = slots.map(tm=>`<button class="time-chip" ${taken.includes(tm)?'disabled':''} data-t="${tm}" onclick="pickTime('${tm}')">${tm}</button>`).join('');
+}
+function pickTime(tm){
+  bkTime = tm;
+  document.querySelectorAll('.time-chip').forEach(el=>el.classList.toggle('selected', el.dataset.t===tm));
+  document.getElementById('step2next').disabled = false;
+}
+function buildSummary(targetId){
+  const el = document.getElementById(targetId);
+  const dateFmt = bkDate ? new Date(bkDate+'T00:00:00').toLocaleDateString(currentLang==='pt'?'pt-PT':'en-GB',{weekday:'long', day:'numeric', month:'long'}) : '';
+  el.innerHTML = `<div class="summary-row"><span>${t('summary_service')}</span><b>${bkService ? bkService[currentLang].name : '—'}</b></div>
+    <div class="summary-row"><span>${t('summary_date')}</span><b>${dateFmt}</b></div>
+    <div class="summary-row"><span>${t('summary_time')}</span><b>${bkTime || '—'}</b></div>`;
+}
+async function confirmBooking(){
+  const name = document.getElementById('inputName').value.trim();
+  const phone = document.getElementById('inputPhone').value.trim();
+  if(!name || !phone){ alert(currentLang==='pt' ? 'Preenche o nome e o telemóvel.' : 'Fill in your name and phone.'); return; }
+  const booking = {
+    id:uid(), service:bkService[currentLang].name, serviceId:bkService.id, date:bkDate, time:bkTime,
+    name, phone, email:currentUser.email, status:'pendente', createdAt:new Date().toISOString()
+  };
+  allBookings.push(booking);
+  try{ await saveBookings(); }catch(e){}
+  try{
+    buildSummary('finalSummaryCard');
+    document.getElementById('finalSummaryCard').innerHTML += `<div class="summary-row"><span>${t('summary_name')}</span><b>${name}</b></div><div class="summary-row"><span>${t('summary_phone')}</span><b>${phone}</b></div>`;
+    goStep(4); fireConfetti(); renderHeroStats(); updateNextSlot();
+  }catch(e){ console.error(e); }
+}
+function fireConfetti(){
+  const wrap = document.getElementById('confettiWrap');
+  const colors = ['#b1594f','#a9824c','#c97a68','#5c8a63'];
+  wrap.innerHTML = '';
+  for(let i=0;i<22;i++){
+    const c = document.createElement('span'); c.className = 'confetti';
+    c.style.left = (45 + Math.random()*10) + '%'; c.style.background = colors[i%colors.length];
+    c.style.animationDelay = (Math.random()*0.3)+'s'; c.style.transform = `translateX(${(Math.random()-0.5)*160}px)`;
+    wrap.appendChild(c);
+  }
+}
+
+/* =========================================================
+   CLIENT HISTORY (per-account, cancel own bookings)
+========================================================= */
+function openHistory(){
+  if(!currentUser){ alert(t('please_login')); openAuth(openHistory); return; }
+  closeAllOverlays(true);
+  document.getElementById('overlayBg').classList.add('show');
+  document.getElementById('historyPanel').classList.add('show');
+  renderHistory();
+}
+function renderHistory(){
+  const mine = allBookings.filter(b=>b.email===currentUser.email).sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
+  const body = document.getElementById('historyBody');
+  if(mine.length===0){ body.innerHTML = `<div class="empty-state"><div class="big">🗂️</div>${t('no_bookings')}</div>`; return; }
+  body.innerHTML = '<div class="booking-list">' + mine.map(b=>{
+    const dateFmt = new Date(b.date+'T00:00:00').toLocaleDateString(currentLang==='pt'?'pt-PT':'en-GB',{day:'2-digit', month:'2-digit', year:'numeric'});
+    const canCancel = b.status !== 'cancelada';
+    return `<div class="booking-item">
+      <div class="bi-top"><div><b>${b.service}</b><span class="bi-date">${dateFmt} · ${b.time}</span></div><span class="status-pill ${b.status}">${b.status}</span></div>
+      ${canCancel ? `<div class="bi-actions"><button class="danger" onclick="clientCancel('${b.id}')">${t('cancel_btn')}</button></div>` : ''}
+    </div>`;
+  }).join('') + '</div>';
+}
+async function clientCancel(id){
+  const b = allBookings.find(x=>x.id===id);
+  if(b && b.email===currentUser.email){ b.status = 'cancelada'; await saveBookings(); renderHistory(); renderHeroStats(); updateNextSlot(); }
+}
+
+/* =========================================================
+   ADMIN (only Liliane's account)
+========================================================= */
+function openAdminDashboard(){
+  if(!currentUser || !currentUser.isAdmin){ alert(t('not_admin')); openAuth(); return; }
+  closeAllOverlays(true);
+  document.getElementById('overlayBg').classList.add('show');
+  document.getElementById('adminPanel').classList.add('show');
+  renderAdminList();
+}
+function renderAdminList(){
+  const list = [...allBookings].sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
+  const todayIso = new Date().toISOString().slice(0,10);
+  document.getElementById('admStatTotal').textContent = list.length;
+  document.getElementById('admStatUpcoming').textContent = list.filter(b=>b.date>=todayIso && b.status!=='cancelada').length;
+  document.getElementById('admStatToday').textContent = list.filter(b=>b.date===todayIso && b.status!=='cancelada').length;
+  const el = document.getElementById('adminList');
+  if(list.length===0){ el.innerHTML = `<div class="empty-state"><div class="big">📭</div>${t('no_admin_bookings')}</div>`; return; }
+  el.innerHTML = list.map(b=>{
+    const dateFmt = new Date(b.date+'T00:00:00').toLocaleDateString(currentLang==='pt'?'pt-PT':'en-GB',{day:'2-digit', month:'2-digit', year:'numeric'});
+    return `<div class="booking-item">
+      <div class="bi-top"><div><b>${b.service}</b><span class="bi-date">${dateFmt} · ${b.time} · ${b.name} · ${b.phone}</span></div><span class="status-pill ${b.status}">${b.status}</span></div>
+      <div class="bi-actions">
+        <button onclick="setStatus('${b.id}','confirmada')">${t('confirm_btn')}</button>
+        <button onclick="setStatus('${b.id}','cancelada')" class="danger">${t('cancel_btn')}</button>
+        <button onclick="deleteBooking('${b.id}')" class="danger">${t('delete_btn')}</button>
+      </div></div>`;
+  }).join('');
+}
+async function setStatus(id, status){ const b = allBookings.find(x=>x.id===id); if(b){ b.status = status; await saveBookings(); renderAdminList(); renderHeroStats(); } }
+async function deleteBooking(id){ allBookings = allBookings.filter(x=>x.id!==id); await saveBookings(); renderAdminList(); renderHeroStats(); }
+
+/* =========================================================
+   CHAT BOT — expanded FAQ, bilingual, booking/cancel help
+========================================================= */
+const FAQ = {
+  pt:[
+    {kw:['horário','horario','aberto','abre','fecha','hora'], a:'O gabinete está aberto Segunda das 09:00 às 19:00, e de Terça a Sexta das 10:00 às 19:00. Fim de semana está fechado.'},
+    {kw:['preço','preco','preços','precos','custa','valor','quanto'], a:'Vê a secção "Preços" no site: unhas de gel 25€, manicure & pedicure 32€, nail art +8€, threading 10€, limpeza de pele 28€. São preços de referência, confirmados na marcação.'},
+    {kw:['como marco','como marcar','marcar','marcação','marcacao','agendar','vaga'], a:'Para marcar: 1) clica em "Marcar" no topo ou no botão flutuante; 2) escolhe o serviço; 3) escolhe o dia e a hora; 4) confirma os teus dados. Precisas de ter conta — se não tiveres, criamos uma em segundos.'},
+    {kw:['como cancelo','como desmarcar','cancelar','desmarcar','remarcar','mudar'], a:'Para cancelar: entra na tua conta, abre "As minhas marcações" e clica em "Cancelar marcação" na marcação que queres desmarcar. Fica logo com o estado "cancelada".'},
+    {kw:['conta','registar','registo','criar conta','login','entrar'], a:'Podes criar conta com nome, email, telemóvel e palavra-passe no botão "Entrar" no topo do site. É rápido e é o que usas depois para ver e gerir as tuas marcações.'},
+    {kw:['confirmar','confirmada','pendente','estado da marcação'], a:'Toda a marcação começa como "pendente" até a Liliane a confirmar. Assim que ela confirma, o estado muda automaticamente para "confirmada" em "As minhas marcações".'},
+    {kw:['morada','localização','localizacao','onde','endereço','endereco','fica'], a:'Ficamos na R. Dr. José Baptista de Sousa, 19C, em Benfica, Lisboa.'},
+    {kw:['pedicure'], a:'A pedicure é feita de forma individual e personalizada — sem baldes nem máquinas partilhadas. Demora cerca de 75 minutos (com manicure).'},
+    {kw:['gel', 'unhas de gel'], a:'As unhas de gel demoram cerca de 60 minutos, com acabamento duradouro. Preço de referência: 25€.'},
+    {kw:['nail art', 'desenho'], a:'Nail art é um acrescento personalizado às unhas de gel, normalmente +30 minutos e +8€.'},
+    {kw:['sobrancelha','threading','depilação','depilacao'], a:'Fazemos depilação por threading para sobrancelhas e contorno do rosto, cerca de 20 minutos.'},
+    {kw:['limpeza de pele','facial','pele'], a:'A limpeza de pele é um tratamento facial de limpeza profunda, cerca de 45 minutos.'},
+    {kw:['criança','crianca','filha','filho','menina','menino'], a:'Não tenho essa informação confirmada — o mais seguro é ligar para 927 933 365 e perguntar diretamente.'},
+    {kw:['estacionamento','parque','carro'], a:'Não tenho essa informação confirmada — pergunta diretamente pelo telefone 927 933 365.'},
+    {kw:['pagamento','pagar','multibanco','dinheiro','cartão','cartao'], a:'Não tenho essa informação confirmada — confirma o método de pagamento diretamente pelo telefone 927 933 365.'},
+    {kw:['primeira vez','nova cliente'], a:'Sê bem-vinda! Basta criar conta e marcar normalmente — não é preciso nada especial para a primeira visita.'},
+    {kw:['atraso','atrasar','atrasada'], a:'Se achas que vais chegar atrasada, o melhor é ligar diretamente para 927 933 365 para avisar.'},
+    {kw:['telefone','contacto','contactar','ligar','número','numero'], a:'Podes ligar para 927 933 365.'},
+    {kw:['obrigado','obrigada','valeu','fixe','ótimo','otimo'], a:'De nada! Qualquer coisa, estou aqui. 🌸'},
+  ],
+  en:[
+    {kw:['hours','open','close','opening'], a:'The studio is open Monday 09:00–19:00, and Tuesday to Friday 10:00–19:00. Closed on weekends.'},
+    {kw:['price','cost','how much'], a:'Check the "Pricing" section: gel nails €25, manicure & pedicure €32, nail art +€8, threading €10, facial cleansing €28. These are reference prices, confirmed at booking.'},
+    {kw:['how do i book','book','booking','appointment','slot'], a:"To book: 1) click \"Book\" at the top or the floating button; 2) choose the service; 3) choose the day and time; 4) confirm your details. You need an account — if you don't have one, we can create it in seconds."},
+    {kw:['how do i cancel','cancel','reschedule','change'], a:"To cancel: log into your account, open \"My bookings\" and click \"Cancel booking\" on the appointment you want to cancel. Its status changes to \"cancelled\" right away."},
+    {kw:['account','register','sign up','create account','login','log in'], a:"You can create an account with name, email, phone and password via the \"Log in\" button at the top. It's quick, and you'll use it to view and manage your bookings."},
+    {kw:['confirm','confirmed','pending','status'], a:'Every booking starts as "pending" until Liliane confirms it. Once she does, the status automatically switches to "confirmed" in "My bookings".'},
+    {kw:['address','location','where'], a:'We are located at R. Dr. José Baptista de Sousa, 19C, Benfica, Lisbon.'},
+    {kw:['pedicure'], a:'Pedicure is done individually and personally — no shared buckets or machines. Takes about 75 minutes (with manicure).'},
+    {kw:['gel nails','gel'], a:'Gel nails take about 60 minutes, with a long-lasting finish. Reference price: €25.'},
+    {kw:['nail art','design'], a:'Nail art is a custom add-on to gel nails, usually +30 minutes and +€8.'},
+    {kw:['eyebrow','threading'], a:'We offer eyebrow and facial-contour threading, around 20 minutes.'},
+    {kw:['facial','skin','cleansing'], a:'The facial cleansing is a deep-cleansing facial treatment, around 45 minutes.'},
+    {kw:['child','kid','daughter','son'], a:"I don't have that confirmed — the safest is to call 927 933 365 and ask directly."},
+    {kw:['parking','car'], a:"I don't have that confirmed — please ask directly by calling 927 933 365."},
+    {kw:['payment','pay','card','cash'], a:"I don't have that confirmed — please confirm the payment method by calling 927 933 365."},
+    {kw:['first time','new client'], a:'Welcome! Just create an account and book as usual — nothing special needed for a first visit.'},
+    {kw:['late','running late'], a:"If you think you'll be late, it's best to call 927 933 365 directly to let us know."},
+    {kw:['phone','contact','call','number'], a:'You can call 927 933 365.'},
+    {kw:['thanks','thank you','great','cool'], a:"You're welcome! I'm here if you need anything else. 🌸"},
+  ]
+};
+const FALLBACK = {
+  pt:'Não tenho a certeza sobre isso — o mais seguro é ligar para <b>927 933 365</b> ou enviar um email para <b>geral@lilianefortunato.pt</b> (email de exemplo, a confirmar), e a Liliane responde-te diretamente.',
+  en:"I'm not sure about that — the safest option is to call <b>927 933 365</b> or send an email to <b>geral@lilianefortunato.pt</b> (placeholder email, to confirm), and Liliane will get back to you directly."
+};
+const QUICK_QUESTIONS = {
+  pt:['Qual o horário?', 'Como marco?', 'Próxima vaga?', 'Quanto custa?'],
+  en:['What are your hours?', 'How do I book?', 'Next available slot?', 'How much does it cost?']
+};
+function chatReply(text){
+  const tt = text.toLowerCase();
+  const nextSlotKw = currentLang==='pt'
+    ? ['próxima vaga','proxima vaga','vaga disponível','vaga disponivel','quando há vaga','quando ha vaga','disponibilidade','primeira vaga','quando posso']
+    : ['next slot','next available','available slot','next appointment','when can i','availability','first available'];
+  if(nextSlotKw.some(k=>tt.includes(k))){
+    const slot = computeNextSlot();
+    if(!slot) return currentLang==='pt' ? 'Não encontrei vagas nos próximos dias — liga para 927 933 365 para confirmar disponibilidade.' : "I couldn't find a slot in the next few days — call 927 933 365 to check availability.";
+    return currentLang==='pt' ? `A próxima vaga disponível é <b>${slot.label}</b>. Podes marcá-la já no botão "Marcar".` : `The next available slot is <b>${slot.label}</b>. You can book it now with the "Book" button.`;
+  }
+  const list = FAQ[currentLang] || FAQ.pt;
+  const hit = list.find(f=>f.kw.some(k=>tt.includes(k)));
+  return hit ? hit.a : FALLBACK[currentLang];
+}
+let chatStarted = false;
+function toggleChat(){
+  const panel = document.getElementById('chatPanel');
+  panel.classList.toggle('show');
+  if(panel.classList.contains('show') && !chatStarted){
+    chatStarted = true;
+    addChatMsg('bot', currentLang==='pt'
+      ? 'Olá! 👋 Sou o assistente da Liliane Fortunato. Posso ajudar com horários, preços, como marcar ou cancelar. Se não souber algo, digo-te logo para ligares.'
+      : "Hi! 👋 I'm the Liliane Fortunato assistant. I can help with hours, pricing, booking or cancelling. If I don't know something, I'll tell you to call.");
+    buildQuickQuestions();
+  }
+}
+function buildQuickQuestions(){
+  const el = document.getElementById('chatQuick');
+  if(!el) return;
+  el.innerHTML = QUICK_QUESTIONS[currentLang].map(q=>`<button onclick="askQuick('${q.replace(/'/g,"&#39;")}')">${q}</button>`).join('');
+}
+function askQuick(q){ document.getElementById('chatInput').value = q; sendChat(); }
+function addChatMsg(who, text){
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div'); div.className = 'chat-msg '+who; div.innerHTML = text;
+  body.appendChild(div); body.scrollTop = body.scrollHeight;
+}
+function sendChat(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  addChatMsg('user', text); input.value = '';
+  setTimeout(()=>{ addChatMsg('bot', chatReply(text)); }, 350);
+}
+
+/* =========================================================
+   OVERLAY / NAV HELPERS
+========================================================= */
+function closeAllOverlays(keepBg){
+  document.querySelectorAll('.overlay-panel').forEach(p=>p.classList.remove('show'));
+  if(!keepBg) document.getElementById('overlayBg').classList.remove('show');
+}
+function toggleMobileNav(){ document.getElementById('navLinks').classList.toggle('show'); }
+document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click', ()=>document.getElementById('navLinks').classList.remove('show')));
+
+/* =========================================================
+   HERO STATS / NEXT SLOT
+========================================================= */
+function animateCount(el, target, decimals){
+  const dur = 900; const t0 = performance.now();
+  function frame(now){
+    const p = Math.min((now-t0)/dur, 1);
+    const val = target * (1-Math.pow(1-p,3));
+    el.textContent = decimals ? val.toFixed(decimals) : Math.round(val);
+    if(p<1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+function renderHeroStats(){
+  animateCount(document.getElementById('statRating'), 5.0, 1);
+  animateCount(document.getElementById('statReviews'), 35, 0);
+  animateCount(document.getElementById('statBookings'), allBookings.length, 0);
+}
+function computeNextSlot(){
+  const today = new Date();
+  const names = currentLang==='pt' ? ['domingo','segunda','terça','quarta','quinta','sexta','sábado'] : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  for(let i=0;i<21;i++){
+    const d = new Date(today); d.setDate(today.getDate()+i);
+    const dow = d.getDay(); if(!HOURS[dow]) continue;
+    const iso = d.toISOString().slice(0,10);
+    const [start,end] = HOURS[dow];
+    let [h,m] = start.split(':').map(Number); const [eh,em] = end.split(':').map(Number);
+    const taken = allBookings.filter(b=>b.date===iso && b.status!=='cancelada').map(b=>b.time);
+    while(h < eh || (h===eh && m<em)){
+      const tm = String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+      if(!taken.includes(tm) && !(i===0 && (h<today.getHours()))){
+        const dayLabel = i===0 ? (currentLang==='pt'?'hoje':'today') : i===1 ? (currentLang==='pt'?'amanhã':'tomorrow') : names[dow];
+        return {label: dayLabel + ' ' + tm, day: dayLabel, time: tm};
+      }
+      m+=45; if(m>=60){m-=60; h+=1;}
+    }
+  }
+  return null;
+}
+function updateNextSlot(){
+  const el = document.getElementById('heroNextSlot'); if(!el) return;
+  const slot = computeNextSlot();
+  el.textContent = slot ? slot.label : (currentLang==='pt' ? 'Contacta-nos' : 'Contact us');
+}
+
+/* =========================================================
+   CINEMATIC ENTRANCE — scroll-driven parallax (original code)
+========================================================= */
+function initCinema(){
+  const wrap = document.getElementById('cinemaWrap');
+  const bottle = document.getElementById('cinemaBottle');
+  const text = document.getElementById('cinemaText');
+  const cue = document.getElementById('cinemaScrollCue');
+  const c1 = document.getElementById('cloud1'), c2 = document.getElementById('cloud2'), c3 = document.getElementById('cloud3');
+  if(!wrap) return;
+  function onScroll(){
+    const rect = wrap.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = wrap.offsetHeight - vh;
+    const scrolled = Math.min(Math.max(-rect.top, 0), total);
+    const p = total > 0 ? scrolled / total : 0;
+    if(bottle) bottle.style.transform = `translateY(calc(-50% - ${p*160}px)) scale(${1 + p*0.12})`;
+    if(bottle) bottle.style.opacity = String(Math.max(1 - p*1.35, 0));
+    if(text) text.style.transform = `translateY(${p*50}px)`;
+    if(text) text.style.opacity = String(Math.max(1 - p*1.8, 0));
+    if(cue) cue.style.opacity = String(Math.max(1 - p*4, 0));
+    if(c1) c1.style.transform = `translateY(${-p*120}px)`;
+    if(c2) c2.style.transform = `translateY(${p*90}px)`;
+    if(c3) c3.style.transform = `translateY(${-p*60}px) translateX(${p*40}px)`;
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+}
+
+/* =========================================================
+   MISC UI
+========================================================= */
+document.addEventListener('scroll', ()=>{ document.getElementById('siteheader').classList.toggle('scrolled', window.scrollY>20); }, {passive:true});
+const heroSection = document.querySelector('.hero'); const glow = document.getElementById('heroGlow');
+if(heroSection && glow){ heroSection.addEventListener('mousemove', (e)=>{ const r = heroSection.getBoundingClientRect(); glow.style.transform = `translate(${e.clientX-r.left-170}px, ${e.clientY-r.top-170}px)`; }); }
+const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+(function highlightToday(){ const dow = new Date().getDay(); const row = document.querySelector(`.hours-row[data-day="${dow}"]`); if(row) row.classList.add('today'); })();
+document.getElementById('overlayBg').addEventListener('click', ()=>closeAllOverlays());
+
+function nudgeVideoPlayback(){
+  document.querySelectorAll('video[autoplay]').forEach(v=>{
+    v.muted = true;
+    const p = v.play();
+    if(p && typeof p.catch === 'function') p.catch(()=>{});
+  });
+}
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) nudgeVideoPlayback(); });
+window.addEventListener('load', ()=>setTimeout(nudgeVideoPlayback, 250));
+
+/* =========================================================
+   INIT
+========================================================= */
+async function init(){
+  let savedLang = 'pt';
+  try{ savedLang = localStorage.getItem('liliane-lang') || 'pt'; }catch(e){}
+  await loadUsers();
+  await loadBookings();
+  try{
+    const savedEmail = localStorage.getItem('liliane-current-email');
+    if(savedEmail && allUsers[savedEmail]) currentUser = allUsers[savedEmail];
+  }catch(e){}
+  setLang(savedLang);
+  renderAuthArea();
+  initCinema();
+  setTimeout(nudgeVideoPlayback, 150);
+}
+init();
+</script>
+
+</body>
+</html>
